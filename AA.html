@@ -52,6 +52,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -70,7 +107,12 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdução</a></li>
-<li class="chapter" data-level="3" data-path="AA.html"><a href="AA.html"><i class="fa fa-check"></i><b>3</b> Análise de Agrupamentos</a></li>
+<li class="chapter" data-level="3" data-path="AA.html"><a href="AA.html"><i class="fa fa-check"></i><b>3</b> Análise de Agrupamentos</a><ul>
+<li class="chapter" data-level="3.1" data-path="AA.html"><a href="AA.html#exemplo-forca-de-trabalho-agricola-na-ue-1993"><i class="fa fa-check"></i><b>3.1</b> Exemplo: Força de trabalho agrícola na UE (1993)</a></li>
+<li class="chapter" data-level="3.2" data-path="AA.html"><a href="AA.html#AAprocess"><i class="fa fa-check"></i><b>3.2</b> Processo de Agrupamento</a></li>
+<li class="chapter" data-level="3.3" data-path="AA.html"><a href="AA.html#AAmethod"><i class="fa fa-check"></i><b>3.3</b> Métodos de Agrupamento</a></li>
+<li class="chapter" data-level="3.4" data-path="AA.html"><a href="AA.html#distancias-para-calculo-de-agrupamento-aadist"><i class="fa fa-check"></i><b>3.4</b> Distâncias para cálculo de agrupamento {##AAdist}</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="PCA.html"><a href="PCA.html"><i class="fa fa-check"></i><b>4</b> Análise de Componentes Principais</a></li>
 <li class="chapter" data-level="5" data-path="FA.html"><a href="FA.html"><i class="fa fa-check"></i><b>5</b> Análise Fatorial</a><ul>
 <li class="chapter" data-level="5.1" data-path="FA.html"><a href="FA.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
@@ -99,8 +141,95 @@
             <section class="normal" id="section-">
 <div id="AA" class="section level1">
 <h1><span class="header-section-number">Capítulo 3</span> Análise de Agrupamentos</h1>
-<p>Here is a review of existing methods.</p>
+<p>Nesta seção serão utilizados as seguinte bibliotecas do R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">libs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;cluster&#39;</span>, <span class="st">&#39;psych&#39;</span>)
+<span class="kw">sapply</span>(libs, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Loading required package: cluster</code></pre>
+<pre><code>## Loading required package: psych</code></pre>
+<pre><code>## cluster   psych 
+##    TRUE    TRUE</code></pre>
+<div id="exemplo-forca-de-trabalho-agricola-na-ue-1993" class="section level2">
+<h2><span class="header-section-number">3.1</span> Exemplo: Força de trabalho agrícola na UE (1993)</h2>
+<p>Estes conjunto registra os dados da produção per capita e o percentual da população que trabalha na agricultura em cada país da UE em 1993.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(agriculture)
 
+## Calcula matriz de dissimilaridade usando distância euclidiana 
+## e sem padronização das variáveis
+<span class="kw">daisy</span>(agriculture, <span class="dt">metric =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">stand =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## Dissimilarities :
+##             B        DK         D        GR         E         F       IRL
+## DK   5.408327                                                            
+## D    2.061553  3.405877                                                  
+## GR  22.339651 22.570113 22.661200                                        
+## E    9.818350 11.182576 10.394710 12.567418                              
+## F    3.448188  3.512834  2.657066 20.100995  8.060397                    
+## IRL 12.747549 13.306014 13.080138  9.604166  3.140064 10.564563          
+## I    5.803447  5.470832  5.423099 17.383325  5.727128  2.773085  7.920859
+## L    4.275512  2.220360  2.300000 24.035391 12.121056  4.060788 14.569145
+## NL   1.649242  5.096077  2.435159 20.752349  8.280097  2.202272 11.150785
+## P   17.236299 17.864490 17.664088  5.162364  7.430343 15.164432  4.601087
+## UK   2.828427  8.052950  4.850773 21.485344  8.984431  5.303772 12.103718
+##             I         L        NL         P
+## DK                                         
+## D                                          
+## GR                                         
+## E                                          
+## F                                          
+## IRL                                        
+## I                                          
+## L    6.660330                              
+## NL   4.204759  4.669047                    
+## P   12.515990 19.168985 15.670673          
+## UK   6.723095  7.102112  3.124100 16.323296
+## 
+## Metric :  euclidean 
+## Number of objects : 12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Usa método de particionamento pelo meióide 
+## Partitioning Around Medoids (PAM)
+<span class="kw">plot</span>(<span class="kw">pam</span>(agriculture, <span class="dv">2</span>), <span class="dt">which.plots =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/data_agri_exe-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Gráfico dendograma usando método aglomeração mais próximo
+## agnes
+<span class="kw">plot</span>(<span class="kw">agnes</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/data_agri_exe-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Plot dissimilaridade usando método divisivo
+## diana
+<span class="kw">plot</span>(<span class="kw">diana</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/data_agri_exe-3.png" width="672" /></p>
+</div>
+<div id="AAprocess" class="section level2">
+<h2><span class="header-section-number">3.2</span> Processo de Agrupamento</h2>
+<p>Um agrupamento pode ser construído de duas formas:</p>
+<ul>
+<li>hierarquia: funções <em>agnes</em>, <em>diana</em>, <em>mona</em> e <em>hclust</em>;</li>
+<li>particionamento: funções <em>pam</em>, <em>clara</em>, <em>fanny</em> e <em>kmeans</em></li>
+</ul>
+</div>
+<div id="AAmethod" class="section level2">
+<h2><span class="header-section-number">3.3</span> Métodos de Agrupamento</h2>
+<p>Um agrupamento pode gerar os grupos utilizando algum dos métodos a seguir (mais comuns):</p>
+<ul>
+<li>média: <em>average</em> ou UPGMA</li>
+<li>simple: <em>single</em></li>
+<li>completa: <em>complete</em></li>
+<li>Ward: <em>ward</em></li>
+<li>média ponderada: <em>weighted</em> ou WPGMA</li>
+</ul>
+</div>
+<div id="distancias-para-calculo-de-agrupamento-aadist" class="section level2">
+<h2><span class="header-section-number">3.4</span> Distâncias para cálculo de agrupamento {##AAdist}</h2>
+<p>Para se calcular a distância entre os componentes, pode-se utilizar as funções a seguir (mais comuns):</p>
+<ul>
+<li>euclidiana: <em>euclidean</em>, raiz da soma dos quadrados das diferenças</li>
+<li>mahalanobis</li>
+<li>Manhattan: <em>manhattan</em>, soma das diferenças média absoluta</li>
+<li>Maximum:</li>
+<li>Canberra</li>
+<li>Binary</li>
+<li>Minkowski</li>
+</ul>
+
+</div>
 </div>
             </section>
 

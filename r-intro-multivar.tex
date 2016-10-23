@@ -33,6 +33,46 @@
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{natbib}
 \bibliographystyle{apalike}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\ImportTok}[1]{{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{{#1}}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
 \usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
@@ -173,7 +213,162 @@ correlação.
 
 \chapter{Análise de Agrupamentos}\label{AA}
 
-Here is a review of existing methods.
+Nesta seção serão utilizados as seguinte bibliotecas do R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{libs <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'cluster'}\NormalTok{, }\StringTok{'psych'}\NormalTok{)}
+\KeywordTok{sapply}\NormalTok{(libs, require, }\DataTypeTok{character.only =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: cluster
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: psych
+\end{verbatim}
+
+\begin{verbatim}
+## cluster   psych 
+##    TRUE    TRUE
+\end{verbatim}
+
+\section{Exemplo: Força de trabalho agrícola na UE
+(1993)}\label{exemplo-forca-de-trabalho-agricola-na-ue-1993}
+
+Estes conjunto registra os dados da produção per capita e o percentual
+da população que trabalha na agricultura em cada país da UE em 1993.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(agriculture)}
+
+\NormalTok{## Calcula matriz de dissimilaridade usando distância euclidiana }
+\NormalTok{## e sem padronização das variáveis}
+\KeywordTok{daisy}\NormalTok{(agriculture, }\DataTypeTok{metric =} \StringTok{"euclidean"}\NormalTok{, }\DataTypeTok{stand =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Dissimilarities :
+##             B        DK         D        GR         E         F       IRL
+## DK   5.408327                                                            
+## D    2.061553  3.405877                                                  
+## GR  22.339651 22.570113 22.661200                                        
+## E    9.818350 11.182576 10.394710 12.567418                              
+## F    3.448188  3.512834  2.657066 20.100995  8.060397                    
+## IRL 12.747549 13.306014 13.080138  9.604166  3.140064 10.564563          
+## I    5.803447  5.470832  5.423099 17.383325  5.727128  2.773085  7.920859
+## L    4.275512  2.220360  2.300000 24.035391 12.121056  4.060788 14.569145
+## NL   1.649242  5.096077  2.435159 20.752349  8.280097  2.202272 11.150785
+## P   17.236299 17.864490 17.664088  5.162364  7.430343 15.164432  4.601087
+## UK   2.828427  8.052950  4.850773 21.485344  8.984431  5.303772 12.103718
+##             I         L        NL         P
+## DK                                         
+## D                                          
+## GR                                         
+## E                                          
+## F                                          
+## IRL                                        
+## I                                          
+## L    6.660330                              
+## NL   4.204759  4.669047                    
+## P   12.515990 19.168985 15.670673          
+## UK   6.723095  7.102112  3.124100 16.323296
+## 
+## Metric :  euclidean 
+## Number of objects : 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Usa método de particionamento pelo meióide }
+\NormalTok{## Partitioning Around Medoids (PAM)}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{pam}\NormalTok{(agriculture, }\DecValTok{2}\NormalTok{), }\DataTypeTok{which.plots =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Gráfico dendograma usando método aglomeração mais próximo}
+\NormalTok{## agnes}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{agnes}\NormalTok{(agriculture), }\DataTypeTok{which.plots =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Plot dissimilaridade usando método divisivo}
+\NormalTok{## diana}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{diana}\NormalTok{(agriculture), }\DataTypeTok{which.plots =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-3.pdf}
+
+\section{Processo de Agrupamento}\label{AAprocess}
+
+Um agrupamento pode ser construído de duas formas:
+
+\begin{itemize}
+\tightlist
+\item
+  hierarquia: funções \emph{agnes}, \emph{diana}, \emph{mona} e
+  \emph{hclust};
+\item
+  particionamento: funções \emph{pam}, \emph{clara}, \emph{fanny} e
+  \emph{kmeans}
+\end{itemize}
+
+\section{Métodos de Agrupamento}\label{AAmethod}
+
+Um agrupamento pode gerar os grupos utilizando algum dos métodos a
+seguir (mais comuns):
+
+\begin{itemize}
+\tightlist
+\item
+  média: \emph{average} ou UPGMA
+\item
+  simple: \emph{single}
+\item
+  completa: \emph{complete}
+\item
+  Ward: \emph{ward}
+\item
+  média ponderada: \emph{weighted} ou WPGMA
+\end{itemize}
+
+\section{Distâncias para cálculo de agrupamento
+\{\#\#AAdist\}}\label{distancias-para-calculo-de-agrupamento-aadist}
+
+Para se calcular a distância entre os componentes, pode-se utilizar as
+funções a seguir (mais comuns):
+
+\begin{itemize}
+\tightlist
+\item
+  euclidiana: \emph{euclidean}, raiz da soma dos quadrados das
+  diferenças
+\item
+  mahalanobis
+\item
+  Manhattan: \emph{manhattan}, soma das diferenças média absoluta
+\item
+  Maximum:
+\item
+  Canberra
+\item
+  Binary
+\item
+  Minkowski
+\end{itemize}
 
 \chapter{Análise de Componentes Principais}\label{PCA}
 
