@@ -9,7 +9,7 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: marcionicolau/r-intro-multivar
-download: ["pdf", "epub", "mobi"]
+download: null
 description: "Este é o material base para o curso introdutório de Análise Multivariada utilizando o software R oferecido em Outubro/2016 na Embrapa Pesca e Aquicultura (Palmas/TO)"
 ---
 
