@@ -13,20 +13,27 @@ download: null
 description: "Este é o material base para o curso introdutório de Análise Multivariada utilizando o software R oferecido em Outubro/2016 na Embrapa Pesca e Aquicultura (Palmas/TO)"
 ---
 
-# Prerequisites
+# Pré-requisitos
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
+Antes de iniciar o curso, faz-se nescessário instalar as ferramentas e pacotes para uso.
 
-For now, you have to install the development versions of **bookdown** from Github:
+Será utilizado o sofware R `r R.Version()` disponível em (CRAN)[https://cran.r-project.org] e o RStudio `r rstudioapi::versionInfo()` disponível em (RStudio)[https://www.rstudio.com/products/rstudio/download/preview/]
 
-```{r eval=FALSE}
-devtools::install_github("rstudio/bookdown")
-```
+A carga horária total será de 20 horas (3 dias) nos quais os seguintes tópicos de Análise Multivariada serão abordados.
 
-Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading `#`.
+* Análise de Agrupamentos (CA)
+* Análise de Componentes Principais (PCA)
+* Análise Fatorial (FA)
 
-To compile this example to PDF, you need to install XeLaTeX.
+Alguns exemplos serão realizados com dados disponíveis na literatura científica e, em certos momentos, serão utilizados dados dos próprios participantes.
 
+Espera-se que ao final do curso o aluno seja capaz de entender o uso de cada técnica e aplicá-la de forma correta em seu campo/área de pesquisa.
+
+Cabe lembrar que este é um curso introdutório e que de forma alguma os conteúdos e aplicações serão apresentadas de forma exaustiva.
+
+Marcio Nicolau
+Estatístico / Embrapa Trigo
+Palmas, Outubro de 2016
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
