@@ -135,32 +135,65 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\chapter{Prerequisites}\label{prerequisites}
+\chapter{Pré-requisitos}\label{pre-requisitos}
 
-This is a \emph{sample} book written in \textbf{Markdown}. You can use
-anything that Pandoc's Markdown supports, e.g., a math equation
-\(a^2 + b^2 = c^2\).
+Antes de iniciar o curso, faz-se nescessário instalar as ferramentas e
+pacotes para uso.
 
-For now, you have to install the development versions of
-\textbf{bookdown} from Github:
+Será utilizado o sofware \emph{R version 3.3.1 (2016-06-21)} disponível
+em \href{https://cran.r-project.org}{CRAN} e o \emph{RStudio v1.0.44
+Preview} disponível em
+\href{https://www.rstudio.com/products/rstudio/download/preview/}{RStudio}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{devtools::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"rstudio/bookdown"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+A carga horária total será de 20 horas (3 dias) nos quais os seguintes
+tópicos de Análise Multivariada serão abordados.
 
-Remember each Rmd file contains one and only one chapter, and a chapter
-is defined by the first-level heading \texttt{\#}.
+\begin{itemize}
+\tightlist
+\item
+  Análise de Agrupamentos (CA)
+\item
+  Análise de Componentes Principais (PCA)
+\item
+  Análise Fatorial (FA)
+\end{itemize}
 
-To compile this example to PDF, you need to install XeLaTeX.
+Alguns exemplos serão realizados com dados disponíveis na literatura
+científica e, em certos momentos, serão utilizados dados dos próprios
+participantes.
 
-\chapter{Introduction}\label{intro}
+Espera-se que ao final do curso o aluno seja capaz de entender o uso de
+cada técnica e aplicá-la de forma correta em seu campo/área de pesquisa.
 
-You can label chapter and section titles using \texttt{\{\#label\}}
-after them, e.g., we can reference Chapter \ref{intro}. If you do not
-manually label them, there will be automatic labels anyway, e.g.,
-Chapter \ref{methods}.
+Cabe lembrar que este é um curso introdutório e que de forma alguma os
+conteúdos e aplicações serão apresentadas de forma exaustiva.
+
+Marcio Nicolau
+
+Estatístico / Embrapa Trigo
+
+Palmas/TO, Outubro de 2016
+
+\chapter{Introdução}\label{intro}
+
+As técnicas de Análise Multivariadas oferecem aplicações em diversas
+áreas do conhecimento no desenvolvimento científico.
+
+Geralmente são utilizadas em fase exploratória de análise de dados, onde
+se busca enteder melhor as relações entre as variáveis (medições físicas
+ou observações) de certo evento sob estudo ou de interesse científico.
+
+Há também aplicações em conjuto com outros métodos da estatística onde é
+possível obter validações ou testes de carácter conclusivo.
+
+Durante este curso e, certamente limitados pelo tempo, serão abordados
+somente as tecnicas de caracter exploratório com a finalidade de se
+enteder melhor as relações intrinsicas entre os dados, reduzir a
+dimensão, entender fontes de variabilidade, criar grupos homogeneos de
+indivíduos/espécies. You can label chapter and section titles using
+\texttt{\{\#label\}} after them, e.g., we can reference Chapter
+\ref{intro}. If you do not manually label them, there will be automatic
+labels anyway, e.g., Chapter \ref{methods}.
 
 Figures and tables with captions will be placed in \texttt{figure} and
 \texttt{table} environments, respectively.
@@ -249,10 +282,6 @@ Some \emph{significant} applications are demonstrated in this chapter.
 \section{Example one}\label{example-one}
 
 \section{Example two}\label{example-two}
-
-\chapter{Final Words}\label{final-words}
-
-We have finished a nice book.
 
 \bibliography{packages.bib,book.bib}
 
