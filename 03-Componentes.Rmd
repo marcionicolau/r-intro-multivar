@@ -1,3 +1,6 @@
-# Methods
+# Análise de Componentes Principais {#PCA}
 
-We describe our methods in this chapter.
+É uma alternativa à Análise Fatorial (FA), apesar dos objetivos serem semelhantes (PCA e FA), na PCA se busca obter o modelo descritivo dos dados enquanto na FA se busca o modelo estrutural. 
+
+Outro destaque importante é que a matriz/vetor de cargas _"loadings"_ possuírem valores equivalentes, na FA estes são menores. Isto ocorre porque na PCA é ajustado um modelo para a variância completa da matriz de correlação das variáveis e na FA o processo é realizado somente para a variância comum.
+
