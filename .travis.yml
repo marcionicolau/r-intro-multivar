@@ -30,7 +30,12 @@ r_packages:
   - tidyr
   - readr
   - shiny
-  - agnes
+  - cluster
+  - proxy
+  - sca
+  - vegan
+  - GPArotation
+  - psych
 
 r_github_packages:
   - rstudio/bookdown
