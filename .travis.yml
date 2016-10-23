@@ -3,8 +3,7 @@ sudo: required
 dist: trusty
 env:
   global:
-  - secure: moJbCQgxX7vVMqD3JoaKXoFnFSdL4MetOR+4OT4kKB3OqYDdBxSmFa3R4VWO+K7+2dHWBKEAig3ymF1WUbzL2XO42/dDylzPGhzNrZioLi/XybWYSSL5VPrFlQQF6KAlT9GQvYysIDvRQsXses4mA6j7TnvMxTpC4TTGSW77fILENudCpjKtG3udLZZyXNcrlgg4lYzQFMtWsJzBI1UtMAQmZBegu7rvNbNmtwTnxmCvLYODYmVu2xKh5GeXiXgoJbSYDPQIHussbxrFobjxDHrTw6bn98/dVFIBepScLk3Yma67H8une1fqAy2nNHmK8v/pcR+5j4dTOkoMsCsPnnGCzUwo17JAtsr5VYtP9J0/+dZE6z9Xa9YwHMOsqE7CtIUd3wyX7598eLSYxYsFRqsrX4J/VcY8HyZVo/+cAboVKLCsYHqn6g65NLMtMw4S+YvSnl5tOR+jr91UgLutFv0y0swBIgCYRQmIq7pBaPjlG6ftAnjoAu5MammaZlWXlM15o3XjrgqjPTPPCSklcYAWRF/rfMfa0a8zy/h+yQapvcUdDmZy5l6tDKfWrOfQgeJIaQfvarpzVKhiR/yBGG6m87QYmi2joGK8OnI0qCC/igxMR02dk3Y8VGYDQ86K++fSuLM4+EW4MKDskJfZEN7Ahk2oAd573xkaxw9ip8Q=
-
+  - secure: QzfwK14wioLe6QI5G1UufwXfVaPAjZbQ9VwjsKJbaP7Gfjwi+3upyU+I0nHpNxgJMXSf6Oo9oiN/WWdgLKM6XocCVgMLCQOPnqr2mr8qyAa4o9JJU96J/WimfecqiHQIKzzFRbEQk8NF/D3nXOaMDUHXpgeCpHvAX+osGeYrsOBUlO3BcjASaWYpxdN4353+8DlIyJRKXW+MfotmPdgfFXNnGqNIe4iBXJEkbqdcVwb1iz9JmnNAYX0Wc5CiCK3b/cF1Ql7Lft12UgW009EMj8j54sJTuTvbHKr4DSSTeKY8Gk87yvhuLpctwkC3RBr1iuMFaxOTu4relONykCbazvENHkdEDP7CUIUOsZE2roIrfTueaTa0fO5cUu/wXv4khBsjfck6gzKzb1ch04YnKhzRf6hA3th9yjNsyN7IMlNNPafMWzdh22WyHYLiea2RRIizuCAhyKx1q3QgnZ8luxC0HQvV3Efao49cIqHf+PPcBDPxCPZ0GxXMX4uljOmVgaAZaBV7i0QcaX0JIpQNm+t8xucZjxM7e8droMbiNR7yGNB/i6DlSLhuXjIwnT8cwEizMwLt9UBCPxLwFuPQOP8hI0EuedvKFGzfkhB7uizIvY/zZzcZmk3nLOyYKKs+A32d0tF+FIzZw8ktDqDOAGgbeyQwSdAZvehl3lXcF4A=
 addons:
   apt:
     packages:
@@ -20,7 +19,6 @@ addons:
     - mesa-common-dev
     - libglu1-mesa-dev
     - netcdf-bin
-
 r_packages:
 - readxl
 - ggplot2
@@ -35,18 +33,14 @@ r_packages:
 - vegan
 - GPArotation
 - psych
-
 r_github_packages:
 - rstudio/bookdown
-
 before_script:
 - chmod +x ./_build.sh
 - chmod +x ./_deploy.sh
-
 script:
 - "./_build.sh"
 - "./_deploy.sh"
-
 cache:
   packages: true
   directories:
