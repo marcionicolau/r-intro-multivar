@@ -1,5 +1,12 @@
-# Introduction {#intro}
+# Introdução {#intro}
 
+As técnicas de Análise Multivariadas oferecem aplicações em diversas áreas do conhecimento no desenvolvimento científico.
+
+Geralmente são utilizadas em fase exploratória de análise de dados, onde se busca enteder melhor as relações entre as variáveis (medições físicas ou observações) de certo evento sob estudo ou de interesse científico.
+
+Há também aplicações em conjuto com outros métodos da estatística onde é possível obter validações ou testes de carácter conclusivo.
+
+Durante este curso e, certamente limitados pelo tempo, serão abordados somente as tecnicas de caracter exploratório com a finalidade de se enteder melhor as relações intrinsicas entre os dados, reduzir a dimensão, entender fontes de variabilidade, criar grupos homogeneos de indivíduos/espécies.
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
 
 Figures and tables with captions will be placed in `figure` and `table` environments, respectively.

@@ -17,7 +17,7 @@ description: "Este é o material base para o curso introdutório de Análise Mul
 
 Antes de iniciar o curso, faz-se nescessário instalar as ferramentas e pacotes para uso.
 
-Será utilizado o sofware R `r R.Version()` disponível em (CRAN)[https://cran.r-project.org] e o RStudio `r rstudioapi::versionInfo()` disponível em (RStudio)[https://www.rstudio.com/products/rstudio/download/preview/]
+Será utilizado o sofware *`r R.Version()$version.string`* disponível em [CRAN](https://cran.r-project.org) e o *RStudio v1.0.44 Preview* disponível em [RStudio](https://www.rstudio.com/products/rstudio/download/preview/).
 
 A carga horária total será de 20 horas (3 dias) nos quais os seguintes tópicos de Análise Multivariada serão abordados.
 
@@ -32,8 +32,11 @@ Espera-se que ao final do curso o aluno seja capaz de entender o uso de cada té
 Cabe lembrar que este é um curso introdutório e que de forma alguma os conteúdos e aplicações serão apresentadas de forma exaustiva.
 
 Marcio Nicolau
+
 Estatístico / Embrapa Trigo
-Palmas, Outubro de 2016
+
+Palmas/TO, Outubro de 2016
+
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
