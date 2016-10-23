@@ -1,3 +1,62 @@
 # Análise de Agrupamentos {#AA}
 
-Here is a review of existing methods.
+Nesta seção serão utilizados as seguinte bibliotecas do R.
+```{r libsecAA, warning=FALSE}
+libs <- c('cluster', 'psych')
+sapply(libs, require, character.only = TRUE)
+```
+
+
+## Exemplo: Força de trabalho agrícola na UE (1993)
+
+Estes conjunto registra os dados da produção per capita e o percentual da população que trabalha na agricultura em cada país da UE em 1993.
+
+```{r data_agri_exe}
+data(agriculture)
+
+## Calcula matriz de dissimilaridade usando distância euclidiana 
+## e sem padronização das variáveis
+daisy(agriculture, metric = "euclidean", stand = FALSE)
+
+## Usa método de particionamento pelo meióide 
+## Partitioning Around Medoids (PAM)
+plot(pam(agriculture, 2), which.plots = 1)
+
+## Gráfico dendograma usando método aglomeração mais próximo
+## agnes
+plot(agnes(agriculture), which.plots = 2)
+
+
+## Plot dissimilaridade usando método divisivo
+## diana
+plot(diana(agriculture), which.plots = 1)
+```
+
+## Processo de Agrupamento {#AAprocess}
+
+Um agrupamento pode ser construído de duas formas:
+
+- hierarquia: funções *agnes*, *diana*, *mona* e *hclust*;
+- particionamento: funções *pam*, *clara*, *fanny* e *kmeans* 
+
+## Métodos de Agrupamento {#AAmethod}
+
+Um agrupamento pode gerar os grupos utilizando algum dos métodos a seguir (mais comuns):
+
+- média:  *average* ou UPGMA
+- simple: *single*
+- completa: *complete*
+- Ward: *ward*
+- média ponderada: *weighted* ou WPGMA
+
+## Distâncias para cálculo de agrupamento {##AAdist}
+
+Para se calcular a distância entre os componentes, pode-se utilizar as funções a seguir (mais comuns):
+
+- euclidiana: *euclidean*, raiz da soma dos quadrados das diferenças
+- mahalanobis
+- Manhattan: *manhattan*, soma das diferenças média absoluta
+- Maximum:
+- Canberra
+- Binary
+- Minkowski
