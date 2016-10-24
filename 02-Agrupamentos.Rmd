@@ -89,5 +89,7 @@ plot(hc, hang = -1)
 memb <- cutree(hc, k = 10)
 # Anota no gráfico os 10 grupos
 rect.hclust(hc, 10)
+dFinal=data.frame(State=row.names(USArrests), grp = memb)
+subset(dFinal, grp == 1)
 ```
 
