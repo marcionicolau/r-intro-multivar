@@ -113,7 +113,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2016-10-23}
+  \date{2016-10-24}
 
 
 % Redefines (sub)paragraphs to behave more like sections
@@ -235,82 +235,11 @@ Nesta seção serão utilizados as seguinte bibliotecas do R.
 ##    TRUE    TRUE
 \end{verbatim}
 
-\section{Exemplo: Força de trabalho agrícola na UE
-(1993)}\label{exemplo-forca-de-trabalho-agricola-na-ue-1993}
-
-Estes conjunto registra os dados da produção per capita e o percentual
-da população que trabalha na agricultura em cada país da UE em 1993.
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{data}\NormalTok{(agriculture)}
-
-\NormalTok{## Calcula matriz de dissimilaridade usando distância euclidiana }
-\NormalTok{## e sem padronização das variáveis}
-\KeywordTok{daisy}\NormalTok{(agriculture, }\DataTypeTok{metric =} \StringTok{"euclidean"}\NormalTok{, }\DataTypeTok{stand =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{knitr::opts_knit$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{fig.width=}\DecValTok{5}\NormalTok{, }\DataTypeTok{fig.height=}\DecValTok{5}\NormalTok{, }\DataTypeTok{fig.align=}\StringTok{'center'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Dissimilarities :
-##             B        DK         D        GR         E         F       IRL
-## DK   5.408327                                                            
-## D    2.061553  3.405877                                                  
-## GR  22.339651 22.570113 22.661200                                        
-## E    9.818350 11.182576 10.394710 12.567418                              
-## F    3.448188  3.512834  2.657066 20.100995  8.060397                    
-## IRL 12.747549 13.306014 13.080138  9.604166  3.140064 10.564563          
-## I    5.803447  5.470832  5.423099 17.383325  5.727128  2.773085  7.920859
-## L    4.275512  2.220360  2.300000 24.035391 12.121056  4.060788 14.569145
-## NL   1.649242  5.096077  2.435159 20.752349  8.280097  2.202272 11.150785
-## P   17.236299 17.864490 17.664088  5.162364  7.430343 15.164432  4.601087
-## UK   2.828427  8.052950  4.850773 21.485344  8.984431  5.303772 12.103718
-##             I         L        NL         P
-## DK                                         
-## D                                          
-## GR                                         
-## E                                          
-## F                                          
-## IRL                                        
-## I                                          
-## L    6.660330                              
-## NL   4.204759  4.669047                    
-## P   12.515990 19.168985 15.670673          
-## UK   6.723095  7.102112  3.124100 16.323296
-## 
-## Metric :  euclidean 
-## Number of objects : 12
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## Usa método de particionamento pelo meióide }
-\NormalTok{## Partitioning Around Medoids (PAM)}
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{pam}\NormalTok{(agriculture, }\DecValTok{2}\NormalTok{), }\DataTypeTok{which.plots =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## Gráfico dendograma usando método aglomeração mais próximo}
-\NormalTok{## agnes}
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{agnes}\NormalTok{(agriculture), }\DataTypeTok{which.plots =} \DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{## Plot dissimilaridade usando método divisivo}
-\NormalTok{## diana}
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{diana}\NormalTok{(agriculture), }\DataTypeTok{which.plots =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-3.pdf}
 
 \section{Processo de Agrupamento}\label{AAprocess}
 
@@ -334,19 +263,18 @@ seguir (mais comuns):
 \begin{itemize}
 \tightlist
 \item
-  média: \emph{average} ou UPGMA
+  average: \emph{média} ou UPGMA (média dissimilaridade)
 \item
-  simple: \emph{single}
+  single: \emph{simple:} (vizinho mais próximo)
 \item
-  completa: \emph{complete}
+  complete: \emph{completa} (vizinho mais distante)
 \item
-  Ward: \emph{ward}
+  ward: \emph{Ward} ou método da mínima variância.
 \item
-  média ponderada: \emph{weighted} ou WPGMA
+  weighted/mcquitty: \emph{média ponderada} ou WPGMA
 \end{itemize}
 
-\section{Distâncias para cálculo de agrupamento
-\{\#\#AAdist\}}\label{distancias-para-calculo-de-agrupamento-aadist}
+\section{Distâncias usadas para cálculo de agrupamentos}\label{AAdist}
 
 Para se calcular a distância entre os componentes, pode-se utilizar as
 funções a seguir (mais comuns):
@@ -354,21 +282,115 @@ funções a seguir (mais comuns):
 \begin{itemize}
 \tightlist
 \item
-  euclidiana: \emph{euclidean}, raiz da soma dos quadrados das
-  diferenças
+  euclidian: \emph{euclideana}, raiz da soma do quadrado das diferenças
+  entre os pontos/observações (distância no plano cartesiano)
 \item
-  mahalanobis
+  mahalanobis: \emph{Mahalanobis}, distância de cada valor em relação à
+  média e covariância (também conhecida como distância estatística).
+  \emph{OBS} é capaz de trabalhar a distância para observações com
+  repetições. (kernel da normal multivariada)
 \item
-  Manhattan: \emph{manhattan}, soma das diferenças média absoluta
+  manhattan: \emph{Manhattan}, soma das diferenças média absoluta (L1
+  norm)
 \item
-  Maximum:
+  maximum: \emph{Máxima}, máxima distância entre dois componentes
+  (supremum norm)
 \item
-  Canberra
+  canberra: \emph{Canberra}, uso em valores não negativos (p.ex.
+  contagem) \(\sum(|x_i - y_i| / |x_i + y_i|)\)
 \item
-  Binary
+  binary: \emph{Binária}, para valores do tipo ``on''/``off'' em que
+  \(0\) representa desligado e números maiores que \(0\). A distância é
+  a proporção de ``on`s''.
 \item
-  Minkowski
+  minkowski: \emph{Minkowski}, P-Norm ou p-ésima raíz da soma de
+  potência p das diferenças.
 \end{itemize}
+
+\section{Exemplo: Força de trabalho agrícola na UE
+(1993)}\label{exemplo-forca-de-trabalho-agricola-na-ue-1993}
+
+Estes conjunto registra os dados da produção per capita e o percentual
+da população que trabalha na agricultura em cada país da UE em 1993.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(agriculture)}
+
+\NormalTok{## Calcula matriz de dissimilaridade usando distância euclidiana }
+\NormalTok{## e sem padronização das variáveis}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{daisy}\NormalTok{(agriculture, }\DataTypeTok{metric =} \StringTok{"euclidean"}\NormalTok{, }\DataTypeTok{stand =} \OtherTok{FALSE}\NormalTok{),}
+      \DataTypeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Dissimilarities :
+##        B   DK    D   GR    E    F  IRL    I    L   NL    P
+## DK   5.4                                                  
+## D    2.1  3.4                                             
+## GR  22.3 22.6 22.7                                        
+## E    9.8 11.2 10.4 12.6                                   
+## F    3.4  3.5  2.7 20.1  8.1                              
+## IRL 12.7 13.3 13.1  9.6  3.1 10.6                         
+## I    5.8  5.5  5.4 17.4  5.7  2.8  7.9                    
+## L    4.3  2.2  2.3 24.0 12.1  4.1 14.6  6.7               
+## NL   1.6  5.1  2.4 20.8  8.3  2.2 11.2  4.2  4.7          
+## P   17.2 17.9 17.7  5.2  7.4 15.2  4.6 12.5 19.2 15.7     
+## UK   2.8  8.1  4.9 21.5  9.0  5.3 12.1  6.7  7.1  3.1 16.3
+## 
+## Metric :  euclidean 
+## Number of objects : 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Usa método de particionamento pelo meióide }
+\NormalTok{## Partitioning Around Medoids (PAM)}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{pam}\NormalTok{(agriculture, }\DecValTok{2}\NormalTok{), }\DataTypeTok{which.plots =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Gráfico dendograma usando método aglomeração mais próximo}
+\NormalTok{## agnes}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{agnes}\NormalTok{(agriculture), }\DataTypeTok{which.plots =} \DecValTok{2}\NormalTok{, }\DataTypeTok{hang =} \NormalTok{-}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Plot dissimilaridade usando método divisivo}
+\NormalTok{## diana}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{diana}\NormalTok{(agriculture), }\DataTypeTok{which.plots =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{## Usando agnes e diana para conjunto agricultura}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{agnes}\NormalTok{(agriculture), }\DataTypeTok{which.plots =} \DecValTok{2}\NormalTok{, }\DataTypeTok{hang =} \NormalTok{-}\DecValTok{1}\NormalTok{,}
+     \DataTypeTok{main =} \StringTok{"Método Aglomerativo}\CharTok{\textbackslash{}n}\StringTok{AGNES"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{diana}\NormalTok{(agriculture), }\DataTypeTok{which.plots =} \DecValTok{2}\NormalTok{, }\DataTypeTok{hang =} \NormalTok{-}\DecValTok{1}\NormalTok{,}
+     \DataTypeTok{main =} \StringTok{"Método Divisivo}\CharTok{\textbackslash{}n}\StringTok{DIANA"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
 
 \chapter{Análise de Componentes Principais}\label{PCA}
 

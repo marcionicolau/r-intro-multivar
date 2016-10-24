@@ -26,8 +26,13 @@
 <meta name="author" content="Marcio Nicolau">
 
   
-<meta name="date" content="2016-10-23">
+<meta name="date" content="2016-10-24">
 
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -108,10 +113,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdução</a></li>
 <li class="chapter" data-level="3" data-path="AA.html"><a href="AA.html"><i class="fa fa-check"></i><b>3</b> Análise de Agrupamentos</a><ul>
-<li class="chapter" data-level="3.1" data-path="AA.html"><a href="AA.html#exemplo-forca-de-trabalho-agricola-na-ue-1993"><i class="fa fa-check"></i><b>3.1</b> Exemplo: Força de trabalho agrícola na UE (1993)</a></li>
-<li class="chapter" data-level="3.2" data-path="AA.html"><a href="AA.html#AAprocess"><i class="fa fa-check"></i><b>3.2</b> Processo de Agrupamento</a></li>
-<li class="chapter" data-level="3.3" data-path="AA.html"><a href="AA.html#AAmethod"><i class="fa fa-check"></i><b>3.3</b> Métodos de Agrupamento</a></li>
-<li class="chapter" data-level="3.4" data-path="AA.html"><a href="AA.html#distancias-para-calculo-de-agrupamento-aadist"><i class="fa fa-check"></i><b>3.4</b> Distâncias para cálculo de agrupamento {##AAdist}</a></li>
+<li class="chapter" data-level="3.1" data-path="AA.html"><a href="AA.html#AAprocess"><i class="fa fa-check"></i><b>3.1</b> Processo de Agrupamento</a></li>
+<li class="chapter" data-level="3.2" data-path="AA.html"><a href="AA.html#AAmethod"><i class="fa fa-check"></i><b>3.2</b> Métodos de Agrupamento</a></li>
+<li class="chapter" data-level="3.3" data-path="AA.html"><a href="AA.html#AAdist"><i class="fa fa-check"></i><b>3.3</b> Distâncias usadas para cálculo de agrupamentos</a></li>
+<li class="chapter" data-level="3.4" data-path="AA.html"><a href="AA.html#exemplo-forca-de-trabalho-agricola-na-ue-1993"><i class="fa fa-check"></i><b>3.4</b> Exemplo: Força de trabalho agrícola na UE (1993)</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="PCA.html"><a href="PCA.html"><i class="fa fa-check"></i><b>4</b> Análise de Componentes Principais</a></li>
 <li class="chapter" data-level="5" data-path="FA.html"><a href="FA.html"><i class="fa fa-check"></i><b>5</b> Análise Fatorial</a><ul>
@@ -148,39 +153,61 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## Loading required package: psych</code></pre>
 <pre><code>## cluster   psych 
 ##    TRUE    TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::opts_knit$<span class="kw">set</span>(<span class="dt">fig.width=</span><span class="dv">5</span>, <span class="dt">fig.height=</span><span class="dv">5</span>, <span class="dt">fig.align=</span><span class="st">&#39;center&#39;</span>)</code></pre></div>
+<div id="AAprocess" class="section level2">
+<h2><span class="header-section-number">3.1</span> Processo de Agrupamento</h2>
+<p>Um agrupamento pode ser construído de duas formas:</p>
+<ul>
+<li>hierarquia: funções <em>agnes</em>, <em>diana</em>, <em>mona</em> e <em>hclust</em>;</li>
+<li>particionamento: funções <em>pam</em>, <em>clara</em>, <em>fanny</em> e <em>kmeans</em></li>
+</ul>
+</div>
+<div id="AAmethod" class="section level2">
+<h2><span class="header-section-number">3.2</span> Métodos de Agrupamento</h2>
+<p>Um agrupamento pode gerar os grupos utilizando algum dos métodos a seguir (mais comuns):</p>
+<ul>
+<li>average: <em>média</em> ou UPGMA (média dissimilaridade)</li>
+<li>single: <em>simple:</em> (vizinho mais próximo)</li>
+<li>complete: <em>completa</em> (vizinho mais distante)</li>
+<li>ward: <em>Ward</em> ou método da mínima variância.</li>
+<li>weighted/mcquitty: <em>média ponderada</em> ou WPGMA</li>
+</ul>
+</div>
+<div id="AAdist" class="section level2">
+<h2><span class="header-section-number">3.3</span> Distâncias usadas para cálculo de agrupamentos</h2>
+<p>Para se calcular a distância entre os componentes, pode-se utilizar as funções a seguir (mais comuns):</p>
+<ul>
+<li>euclidian: <em>euclideana</em>, raiz da soma do quadrado das diferenças entre os pontos/observações (distância no plano cartesiano)</li>
+<li>mahalanobis: <em>Mahalanobis</em>, distância de cada valor em relação à média e covariância (também conhecida como distância estatística). <em>OBS</em> é capaz de trabalhar a distância para observações com repetições. (kernel da normal multivariada)</li>
+<li>manhattan: <em>Manhattan</em>, soma das diferenças média absoluta (L1 norm)</li>
+<li>maximum: <em>Máxima</em>, máxima distância entre dois componentes (supremum norm)</li>
+<li>canberra: <em>Canberra</em>, uso em valores não negativos (p.ex. contagem) <span class="math inline">\(\sum(|x_i - y_i| / |x_i + y_i|)\)</span></li>
+<li>binary: <em>Binária</em>, para valores do tipo “on”/“off” em que <span class="math inline">\(0\)</span> representa desligado e números maiores que <span class="math inline">\(0\)</span>. A distância é a proporção de “on`s”.</li>
+<li>minkowski: <em>Minkowski</em>, P-Norm ou p-ésima raíz da soma de potência p das diferenças.</li>
+</ul>
+</div>
 <div id="exemplo-forca-de-trabalho-agricola-na-ue-1993" class="section level2">
-<h2><span class="header-section-number">3.1</span> Exemplo: Força de trabalho agrícola na UE (1993)</h2>
+<h2><span class="header-section-number">3.4</span> Exemplo: Força de trabalho agrícola na UE (1993)</h2>
 <p>Estes conjunto registra os dados da produção per capita e o percentual da população que trabalha na agricultura em cada país da UE em 1993.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(agriculture)
 
 ## Calcula matriz de dissimilaridade usando distância euclidiana 
 ## e sem padronização das variáveis
-<span class="kw">daisy</span>(agriculture, <span class="dt">metric =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">stand =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<span class="kw">print</span>(<span class="kw">daisy</span>(agriculture, <span class="dt">metric =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">stand =</span> <span class="ot">FALSE</span>),
+      <span class="dt">digits =</span> <span class="dv">2</span>)</code></pre></div>
 <pre><code>## Dissimilarities :
-##             B        DK         D        GR         E         F       IRL
-## DK   5.408327                                                            
-## D    2.061553  3.405877                                                  
-## GR  22.339651 22.570113 22.661200                                        
-## E    9.818350 11.182576 10.394710 12.567418                              
-## F    3.448188  3.512834  2.657066 20.100995  8.060397                    
-## IRL 12.747549 13.306014 13.080138  9.604166  3.140064 10.564563          
-## I    5.803447  5.470832  5.423099 17.383325  5.727128  2.773085  7.920859
-## L    4.275512  2.220360  2.300000 24.035391 12.121056  4.060788 14.569145
-## NL   1.649242  5.096077  2.435159 20.752349  8.280097  2.202272 11.150785
-## P   17.236299 17.864490 17.664088  5.162364  7.430343 15.164432  4.601087
-## UK   2.828427  8.052950  4.850773 21.485344  8.984431  5.303772 12.103718
-##             I         L        NL         P
-## DK                                         
-## D                                          
-## GR                                         
-## E                                          
-## F                                          
-## IRL                                        
-## I                                          
-## L    6.660330                              
-## NL   4.204759  4.669047                    
-## P   12.515990 19.168985 15.670673          
-## UK   6.723095  7.102112  3.124100 16.323296
+##        B   DK    D   GR    E    F  IRL    I    L   NL    P
+## DK   5.4                                                  
+## D    2.1  3.4                                             
+## GR  22.3 22.6 22.7                                        
+## E    9.8 11.2 10.4 12.6                                   
+## F    3.4  3.5  2.7 20.1  8.1                              
+## IRL 12.7 13.3 13.1  9.6  3.1 10.6                         
+## I    5.8  5.5  5.4 17.4  5.7  2.8  7.9                    
+## L    4.3  2.2  2.3 24.0 12.1  4.1 14.6  6.7               
+## NL   1.6  5.1  2.4 20.8  8.3  2.2 11.2  4.2  4.7          
+## P   17.2 17.9 17.7  5.2  7.4 15.2  4.6 12.5 19.2 15.7     
+## UK   2.8  8.1  4.9 21.5  9.0  5.3 12.1  6.7  7.1  3.1 16.3
 ## 
 ## Metric :  euclidean 
 ## Number of objects : 12</code></pre>
@@ -190,44 +217,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><img src="r-intro-multivar_files/figure-html/data_agri_exe-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Gráfico dendograma usando método aglomeração mais próximo
 ## agnes
-<span class="kw">plot</span>(<span class="kw">agnes</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">2</span>)</code></pre></div>
+<span class="kw">plot</span>(<span class="kw">agnes</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">2</span>, <span class="dt">hang =</span> -<span class="dv">1</span>)</code></pre></div>
 <p><img src="r-intro-multivar_files/figure-html/data_agri_exe-2.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Plot dissimilaridade usando método divisivo
 ## diana
 <span class="kw">plot</span>(<span class="kw">diana</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">1</span>)</code></pre></div>
 <p><img src="r-intro-multivar_files/figure-html/data_agri_exe-3.png" width="672" /></p>
-</div>
-<div id="AAprocess" class="section level2">
-<h2><span class="header-section-number">3.2</span> Processo de Agrupamento</h2>
-<p>Um agrupamento pode ser construído de duas formas:</p>
-<ul>
-<li>hierarquia: funções <em>agnes</em>, <em>diana</em>, <em>mona</em> e <em>hclust</em>;</li>
-<li>particionamento: funções <em>pam</em>, <em>clara</em>, <em>fanny</em> e <em>kmeans</em></li>
-</ul>
-</div>
-<div id="AAmethod" class="section level2">
-<h2><span class="header-section-number">3.3</span> Métodos de Agrupamento</h2>
-<p>Um agrupamento pode gerar os grupos utilizando algum dos métodos a seguir (mais comuns):</p>
-<ul>
-<li>média: <em>average</em> ou UPGMA</li>
-<li>simple: <em>single</em></li>
-<li>completa: <em>complete</em></li>
-<li>Ward: <em>ward</em></li>
-<li>média ponderada: <em>weighted</em> ou WPGMA</li>
-</ul>
-</div>
-<div id="distancias-para-calculo-de-agrupamento-aadist" class="section level2">
-<h2><span class="header-section-number">3.4</span> Distâncias para cálculo de agrupamento {##AAdist}</h2>
-<p>Para se calcular a distância entre os componentes, pode-se utilizar as funções a seguir (mais comuns):</p>
-<ul>
-<li>euclidiana: <em>euclidean</em>, raiz da soma dos quadrados das diferenças</li>
-<li>mahalanobis</li>
-<li>Manhattan: <em>manhattan</em>, soma das diferenças média absoluta</li>
-<li>Maximum:</li>
-<li>Canberra</li>
-<li>Binary</li>
-<li>Minkowski</li>
-</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Usando agnes e diana para conjunto agricultura
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>))
+<span class="kw">plot</span>(<span class="kw">agnes</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">2</span>, <span class="dt">hang =</span> -<span class="dv">1</span>,
+     <span class="dt">main =</span> <span class="st">&quot;Método Aglomerativo</span><span class="ch">\n</span><span class="st">AGNES&quot;</span>)
+<span class="kw">plot</span>(<span class="kw">diana</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">2</span>, <span class="dt">hang =</span> -<span class="dv">1</span>,
+     <span class="dt">main =</span> <span class="st">&quot;Método Divisivo</span><span class="ch">\n</span><span class="st">DIANA&quot;</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/data_agri_exe-4.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
 
 </div>
 </div>
@@ -275,6 +278,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

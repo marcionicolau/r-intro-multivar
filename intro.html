@@ -26,8 +26,13 @@
 <meta name="author" content="Marcio Nicolau">
 
   
-<meta name="date" content="2016-10-23">
+<meta name="date" content="2016-10-24">
 
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -108,10 +113,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdução</a></li>
 <li class="chapter" data-level="3" data-path="AA.html"><a href="AA.html"><i class="fa fa-check"></i><b>3</b> Análise de Agrupamentos</a><ul>
-<li class="chapter" data-level="3.1" data-path="AA.html"><a href="AA.html#exemplo-forca-de-trabalho-agricola-na-ue-1993"><i class="fa fa-check"></i><b>3.1</b> Exemplo: Força de trabalho agrícola na UE (1993)</a></li>
-<li class="chapter" data-level="3.2" data-path="AA.html"><a href="AA.html#AAprocess"><i class="fa fa-check"></i><b>3.2</b> Processo de Agrupamento</a></li>
-<li class="chapter" data-level="3.3" data-path="AA.html"><a href="AA.html#AAmethod"><i class="fa fa-check"></i><b>3.3</b> Métodos de Agrupamento</a></li>
-<li class="chapter" data-level="3.4" data-path="AA.html"><a href="AA.html#distancias-para-calculo-de-agrupamento-aadist"><i class="fa fa-check"></i><b>3.4</b> Distâncias para cálculo de agrupamento {##AAdist}</a></li>
+<li class="chapter" data-level="3.1" data-path="AA.html"><a href="AA.html#AAprocess"><i class="fa fa-check"></i><b>3.1</b> Processo de Agrupamento</a></li>
+<li class="chapter" data-level="3.2" data-path="AA.html"><a href="AA.html#AAmethod"><i class="fa fa-check"></i><b>3.2</b> Métodos de Agrupamento</a></li>
+<li class="chapter" data-level="3.3" data-path="AA.html"><a href="AA.html#AAdist"><i class="fa fa-check"></i><b>3.3</b> Distâncias usadas para cálculo de agrupamentos</a></li>
+<li class="chapter" data-level="3.4" data-path="AA.html"><a href="AA.html#exemplo-forca-de-trabalho-agricola-na-ue-1993"><i class="fa fa-check"></i><b>3.4</b> Exemplo: Força de trabalho agrícola na UE (1993)</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="PCA.html"><a href="PCA.html"><i class="fa fa-check"></i><b>4</b> Análise de Componentes Principais</a></li>
 <li class="chapter" data-level="5" data-path="FA.html"><a href="FA.html"><i class="fa fa-check"></i><b>5</b> Análise Fatorial</a><ul>
@@ -195,6 +200,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
