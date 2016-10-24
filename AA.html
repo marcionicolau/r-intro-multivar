@@ -246,6 +246,16 @@ memb &lt;-<span class="st"> </span><span class="kw">cutree</span>(hc, <span clas
 <span class="co"># Anota no gráfico os 10 grupos</span>
 <span class="kw">rect.hclust</span>(hc, <span class="dv">10</span>)</code></pre></div>
 <p><img src="r-intro-multivar_files/figure-html/cluArrest-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dFinal=<span class="kw">data.frame</span>(<span class="dt">State=</span><span class="kw">row.names</span>(USArrests), <span class="dt">grp =</span> memb)
+<span class="kw">subset</span>(dFinal, grp ==<span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<pre><code>##               State grp
+## Alabama     Alabama   1
+## Delaware   Delaware   1
+## Illinois   Illinois   1
+## Louisiana Louisiana   1
+## Michigan   Michigan   1
+## Nevada       Nevada   1
+## New York   New York   1</code></pre>
 
 </div>
 </div>

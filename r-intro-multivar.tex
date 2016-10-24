@@ -408,6 +408,24 @@ instalação padrão do R.
 
 \includegraphics{r-intro-multivar_files/figure-latex/cluArrest-1.pdf}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dFinal=}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{State=}\KeywordTok{row.names}\NormalTok{(USArrests), }\DataTypeTok{grp =} \NormalTok{memb)}
+\KeywordTok{subset}\NormalTok{(dFinal, grp ==}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               State grp
+## Alabama     Alabama   1
+## Delaware   Delaware   1
+## Illinois   Illinois   1
+## Louisiana Louisiana   1
+## Michigan   Michigan   1
+## Nevada       Nevada   1
+## New York   New York   1
+\end{verbatim}
+
 \chapter{Análise de Componentes Principais}\label{PCA}
 
 É uma alternativa à Análise Fatorial (FA), apesar dos objetivos serem
