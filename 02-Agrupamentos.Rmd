@@ -67,5 +67,27 @@ plot(agnes(agriculture), which.plots = 2, hang = -1,
 plot(diana(agriculture), which.plots = 2, hang = -1,
      main = "Método Divisivo\nDIANA")
 
+```
+
+```{r cleanup, echo=FALSE}
+
 par(mfrow=c(1,1))
 ```
+
+## Exemplo cluster USArrest
+
+Neste exemplo vamos utilizar o conjunto USArrest, disponível na instalação padrão do R.
+
+```{r cluArrest}
+data(USArrests)
+#?USArrests
+
+d0 = dist(USArrests) # euclidian
+hc = hclust(d0, "average")
+plot(hc, hang = -1)
+# Criar 10 grupos
+memb <- cutree(hc, k = 10)
+# Anota no gráfico os 10 grupos
+rect.hclust(hc, 10)
+```
+
