@@ -117,6 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="AA.html"><a href="AA.html#AAmethod"><i class="fa fa-check"></i><b>3.2</b> Métodos de Agrupamento</a></li>
 <li class="chapter" data-level="3.3" data-path="AA.html"><a href="AA.html#AAdist"><i class="fa fa-check"></i><b>3.3</b> Distâncias usadas para cálculo de agrupamentos</a></li>
 <li class="chapter" data-level="3.4" data-path="AA.html"><a href="AA.html#exemplo-forca-de-trabalho-agricola-na-ue-1993"><i class="fa fa-check"></i><b>3.4</b> Exemplo: Força de trabalho agrícola na UE (1993)</a></li>
+<li class="chapter" data-level="3.5" data-path="AA.html"><a href="AA.html#exemplo-cluster-usarrest"><i class="fa fa-check"></i><b>3.5</b> Exemplo cluster USArrest</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="PCA.html"><a href="PCA.html"><i class="fa fa-check"></i><b>4</b> Análise de Componentes Principais</a></li>
 <li class="chapter" data-level="5" data-path="FA.html"><a href="FA.html"><i class="fa fa-check"></i><b>5</b> Análise Fatorial</a><ul>
@@ -230,7 +231,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">plot</span>(<span class="kw">diana</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">2</span>, <span class="dt">hang =</span> -<span class="dv">1</span>,
      <span class="dt">main =</span> <span class="st">&quot;Método Divisivo</span><span class="ch">\n</span><span class="st">DIANA&quot;</span>)</code></pre></div>
 <p><img src="r-intro-multivar_files/figure-html/data_agri_exe-4.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+</div>
+<div id="exemplo-cluster-usarrest" class="section level2">
+<h2><span class="header-section-number">3.5</span> Exemplo cluster USArrest</h2>
+<p>Neste exemplo vamos utilizar o conjunto USArrest, disponível na instalação padrão do R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(USArrests)
+<span class="co">#?USArrests</span>
+
+d0 =<span class="st"> </span><span class="kw">dist</span>(USArrests) <span class="co"># euclidian</span>
+hc =<span class="st"> </span><span class="kw">hclust</span>(d0, <span class="st">&quot;average&quot;</span>)
+<span class="kw">plot</span>(hc, <span class="dt">hang =</span> -<span class="dv">1</span>)
+<span class="co"># Criar 10 grupos</span>
+memb &lt;-<span class="st"> </span><span class="kw">cutree</span>(hc, <span class="dt">k =</span> <span class="dv">10</span>)
+<span class="co"># Anota no gráfico os 10 grupos</span>
+<span class="kw">rect.hclust</span>(hc, <span class="dv">10</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/cluArrest-1.png" width="672" /></p>
 
 </div>
 </div>

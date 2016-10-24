@@ -386,11 +386,27 @@ da população que trabalha na agricultura em cada país da UE em 1993.
 
 \includegraphics{r-intro-multivar_files/figure-latex/data_agri_exe-4.pdf}
 
+\section{Exemplo cluster USArrest}\label{exemplo-cluster-usarrest}
+
+Neste exemplo vamos utilizar o conjunto USArrest, disponível na
+instalação padrão do R.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{data}\NormalTok{(USArrests)}
+\CommentTok{#?USArrests}
+
+\NormalTok{d0 =}\StringTok{ }\KeywordTok{dist}\NormalTok{(USArrests) }\CommentTok{# euclidian}
+\NormalTok{hc =}\StringTok{ }\KeywordTok{hclust}\NormalTok{(d0, }\StringTok{"average"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(hc, }\DataTypeTok{hang =} \NormalTok{-}\DecValTok{1}\NormalTok{)}
+\CommentTok{# Criar 10 grupos}
+\NormalTok{memb <-}\StringTok{ }\KeywordTok{cutree}\NormalTok{(hc, }\DataTypeTok{k =} \DecValTok{10}\NormalTok{)}
+\CommentTok{# Anota no gráfico os 10 grupos}
+\KeywordTok{rect.hclust}\NormalTok{(hc, }\DecValTok{10}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{r-intro-multivar_files/figure-latex/cluArrest-1.pdf}
 
 \chapter{Análise de Componentes Principais}\label{PCA}
 
