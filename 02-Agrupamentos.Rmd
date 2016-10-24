@@ -4,32 +4,7 @@ Nesta seção serão utilizados as seguinte bibliotecas do R.
 ```{r libsecAA, warning=FALSE}
 libs <- c('cluster', 'psych')
 sapply(libs, require, character.only = TRUE)
-```
-
-
-## Exemplo: Força de trabalho agrícola na UE (1993)
-
-Estes conjunto registra os dados da produção per capita e o percentual da população que trabalha na agricultura em cada país da UE em 1993.
-
-```{r data_agri_exe}
-data(agriculture)
-
-## Calcula matriz de dissimilaridade usando distância euclidiana 
-## e sem padronização das variáveis
-daisy(agriculture, metric = "euclidean", stand = FALSE)
-
-## Usa método de particionamento pelo meióide 
-## Partitioning Around Medoids (PAM)
-plot(pam(agriculture, 2), which.plots = 1)
-
-## Gráfico dendograma usando método aglomeração mais próximo
-## agnes
-plot(agnes(agriculture), which.plots = 2)
-
-
-## Plot dissimilaridade usando método divisivo
-## diana
-plot(diana(agriculture), which.plots = 1)
+knitr::opts_knit$set(fig.width=5, fig.height=5, fig.align='center')
 ```
 
 ## Processo de Agrupamento {#AAprocess}
@@ -43,20 +18,54 @@ Um agrupamento pode ser construído de duas formas:
 
 Um agrupamento pode gerar os grupos utilizando algum dos métodos a seguir (mais comuns):
 
-- média:  *average* ou UPGMA
-- simple: *single*
-- completa: *complete*
-- Ward: *ward*
-- média ponderada: *weighted* ou WPGMA
+- average: *média* ou UPGMA (média dissimilaridade)
+- single: *simple:* (vizinho mais próximo)
+- complete: *completa* (vizinho mais distante)
+- ward: *Ward* ou método da mínima variância.
+- weighted/mcquitty: *média ponderada* ou WPGMA
 
-## Distâncias para cálculo de agrupamento {##AAdist}
+## Distâncias usadas para cálculo de agrupamentos {#AAdist}
 
 Para se calcular a distância entre os componentes, pode-se utilizar as funções a seguir (mais comuns):
 
-- euclidiana: *euclidean*, raiz da soma dos quadrados das diferenças
-- mahalanobis
-- Manhattan: *manhattan*, soma das diferenças média absoluta
-- Maximum:
-- Canberra
-- Binary
-- Minkowski
+- euclidian: *euclideana*, raiz da soma do quadrado das diferenças entre os pontos/observações (distância no plano cartesiano)
+- mahalanobis: *Mahalanobis*, distância de cada valor em relação à média e covariância (também conhecida como distância estatística). _OBS_ é capaz de trabalhar a distância para observações com repetições. (kernel da normal multivariada)
+- manhattan: *Manhattan*, soma das diferenças média absoluta (L1 norm)
+- maximum: *Máxima*, máxima distância entre dois componentes (supremum norm)
+- canberra: *Canberra*, uso em valores não negativos (p.ex. contagem) $\sum(|x_i - y_i| / |x_i + y_i|)$
+- binary: *Binária*, para valores do tipo "on"/"off" em que $0$ representa desligado e números maiores que $0$. A distância é a proporção de "on`s".
+- minkowski: *Minkowski*, P-Norm ou p-ésima raíz da soma de potência p das diferenças.
+
+## Exemplo: Força de trabalho agrícola na UE (1993)
+
+Estes conjunto registra os dados da produção per capita e o percentual da população que trabalha na agricultura em cada país da UE em 1993.
+
+```{r data_agri_exe}
+data(agriculture)
+
+## Calcula matriz de dissimilaridade usando distância euclidiana 
+## e sem padronização das variáveis
+print(daisy(agriculture, metric = "euclidean", stand = FALSE),
+      digits = 2)
+
+## Usa método de particionamento pelo meióide 
+## Partitioning Around Medoids (PAM)
+plot(pam(agriculture, 2), which.plots = 1)
+
+## Gráfico dendograma usando método aglomeração mais próximo
+## agnes
+plot(agnes(agriculture), which.plots = 2, hang = -1)
+
+## Plot dissimilaridade usando método divisivo
+## diana
+plot(diana(agriculture), which.plots = 1)
+
+## Usando agnes e diana para conjunto agricultura
+par(mfrow=c(1,2), mar=c(3,2,2,0))
+plot(agnes(agriculture), which.plots = 2, hang = -1,
+     main = "Método Aglomerativo\nAGNES")
+plot(diana(agriculture), which.plots = 2, hang = -1,
+     main = "Método Divisivo\nDIANA")
+
+par(mfrow=c(1,1))
+```
