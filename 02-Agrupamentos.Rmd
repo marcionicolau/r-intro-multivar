@@ -2,8 +2,7 @@
 
 Nesta seção serão utilizados as seguinte bibliotecas do R.
 ```{r libsecAA, warning=FALSE}
-libs <- c('cluster', 'psych')
-sapply(libs, require, character.only = TRUE)
+autoLib(c('cluster', 'dplyr'))
 knitr::opts_knit$set(fig.width=5, fig.height=5, fig.align='center')
 ```
 
@@ -86,10 +85,55 @@ d0 = dist(USArrests) # euclidian
 hc = hclust(d0, "average")
 plot(hc, hang = -1)
 # Criar 10 grupos
-memb <- cutree(hc, k = 10)
+memb = cutree(hc, k = 10)
 # Anota no gráfico os 10 grupos
 rect.hclust(hc, 10)
-dFinal=data.frame(State=row.names(USArrests), grp = memb)
-subset(dFinal, grp == 1)
+```
+
+Como exercício, será trabalhado a seguinte situação: Gostaríamos de saber quais são os estados que compoem o grupo 1 e qual a média de assalto (variável _Assault_) para cada grupo. 
+
+```{r meanAssault}
+# Cria conjunto de dados a partir da divisão inicial com
+# 10 grupos, com as variáveis State e grp10
+dAssault = data.frame(State = names(memb), grp10 = memb)
+# Utilizando a biblioteca dplyr, transformamos o conjunto
+# dAssault para criar uma nova variável grp3
+dAssault = dAssault %>% mutate(grp3 = cutree(hc, k = 3), Assault = USArrests$Assault)
+# calculamos a média por cada grupo grp10
+dAssault %>% group_by(grp10) %>% summarize(media=mean(Assault))
+# selecionamos os estados que estão associados ao grupo 1
+dAssault %>% filter(grp10 == 1)
+# calculamos a média e o número de estados por cada grupo grp3
+dAssault %>% 
+  group_by(grp3) %>% 
+  summarize(media=mean(Assault), prop = sum(Assault)/sum(USArrests$Assault),
+            qtd = n()) %>% arrange(prop)
+```
+
+Pode-se usa a ANOVA para avaliar o número de grupos, confira o código a seguir
+
+```{r clusAnova}
+# ANOVA para grp10
+aovGrp10 = aov(Assault ~ as.factor(grp10), data = dAssault)
+summary(aovGrp10)
+# ANOVA para grp3
+aovGrp3 = aov(Assault ~ as.factor(grp3), data = dAssault)
+summary(aovGrp3)
+# OBS: todo modelo linear aumenta a explicação com a 
+# adição de novas variáveis ao modelo, faz-se necessário
+# criar uma penalização para auxiliar na escolha entre modelos
+# além de definir um critério
+(mseGrp10 = sqrt(summary(aovGrp10)[[1]]$`Mean Sq`[2]))
+(mseGrp3 = sqrt(summary(aovGrp3)[[1]]$`Mean Sq`[2]))
+# critério mse - log(num fatores)
+mseGrp10 - log(10)
+mseGrp3 - log(3)
+```
+
+Por fim, a apresentação dos grupos, também pode ser feita com a função _clusplot_
+
+```{r plotGrp3}
+clusplot(USArrests, cutree(hc, k = 3), shade = TRUE, color = TRUE,
+         col.clus = c("red", "grey20", "blue"))
 ```
 

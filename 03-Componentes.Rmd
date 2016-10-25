@@ -4,3 +4,73 @@
 
 Outro destaque importante é que a matriz/vetor de cargas _"loadings"_ possuírem valores equivalentes, na FA estes são menores. Isto ocorre porque na PCA é ajustado um modelo para a variância completa da matriz de correlação das variáveis e na FA o processo é realizado somente para a variância comum.
 
+Nesta seção serão utilizados as seguinte bibliotecas do R.
+```{r libsecPCA, warning=FALSE}
+autoLib('psych')
+knitr::opts_knit$set(fig.width=5, fig.height=5, fig.align='center')
+```
+
+## Métodos de cálculo
+
+O cálculo de componentes principais pode ser feito, em geral, de duas formas:
+
+- *princomp* ou *principal(psych)*: Autovalor/Autovetor
+- *prcomp*: decomposição SVD  
+
+A documentação do _R_ indica o uso da função prcomp por apresentar melhor precisão numérica (por causa do método). Já a função _principal(psych)_ apresenta resultados mais detalhados.
+
+De forma geral, o que ocorre é a construção de novas variáveis (fatores) que são a combinação linear entre as variáveis originais mas apresentam certas qualidades de interesse, como por exemplo a independência entre os novos fatores e que estes representam a maior variação possível.
+
+Pode-se dizer que as novas variáveis ou fatores, formam uma rotação (ou projeção) em um novo conjunto de eixos. As direções são escolhidas com base na máxima variabilidade observada.
+
+No final do processo, tem-se variáveis independentes entre si e que explicam uma porção da variação inicial dos dados. Geralmente, 2 ou 3 componentes são suficientes para exlicar mais que $80\%$ da variação total.
+
+## Exemplo da função prcomp
+
+```{r exe_prcomp, fig.height=8, fig.width=8, fig.align='center'}
+## Variáveis na escala original, inapropriado
+prcomp(USArrests) 
+## Variáveis trasnformadas para eliminar efeito de diferença
+## entre escala/medida
+prcomp(USArrests, scale = TRUE)
+## é possível escolher apenas algumas variávies de interesse
+prcomp(~ Murder + Assault + Rape, data = USArrests, scale = TRUE)
+## gráfico para escolher o número de componentes
+screeplot(prcomp(USArrests, scale = TRUE))
+## outro gráfico com a representação da variância explicada por 
+## cada fator
+plot(prcomp(USArrests))
+## sumário com os valores explicados e variância total acumulada
+summary(prcomp(USArrests, scale = TRUE))
+## gráfico biplot
+biplot(prcomp(USArrests, scale = TRUE))
+abline(v=0,h=0,col="red", lty=2)
+```
+
+## Exemplo da função principal(psych)
+
+```{r exe_principal, fig.align='center', fig.width=8, fig.height=8}
+#Four principal components of the Harman 24 variable problem
+#compare to a four factor principal axes solution using factor.congruence
+# Calcula o PCA com rotação varimax
+pc0 <- principal(Harman74.cor$cov,4,rotate="varimax")
+# Calcula o PCA sem rotação (similar prcomp)
+pc1 <- principal(Harman74.cor$cov,4,rotate="none")
+# resultado do pc0
+print(pc0)
+# resultado do pc1
+print(pc1)
+# Calcula PCA para conjunto Harman.5, 2 fatores e rotação varimax
+pc2 <- principal(Harman.5,2,rotate="varimax")
+pc2
+# compare these correlations to the loadings 
+#  do it for unstandardized scores, and transform obliquely
+round(cor(Harman.5,pc2$scores),2)  
+pc2o <- principal(Harman.5,2,rotate="promax",covar=TRUE)
+pc2o
+round(cov(Harman.5,pc2o$scores),2) 
+pc2o$Structure    #this matches the covariances with the scores
+biplot(pc2,main="Biplot of the Harman.5 socio-economic variables",labels=paste0(1:12))
+```
+
+
