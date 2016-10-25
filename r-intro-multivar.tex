@@ -222,7 +222,7 @@ para uso, utilize a função abaixo
 \NormalTok{autoLib =}\StringTok{ }\NormalTok{function(packs) \{}
   \NormalTok{idx =}\StringTok{ }\NormalTok{packs %in%}\StringTok{ }\KeywordTok{installed.packages}\NormalTok{()[, }\StringTok{"Package"}\NormalTok{]}
   \NormalTok{needInstall =}\StringTok{ }\NormalTok{packs[!idx]}
-  \NormalTok{if(}\KeywordTok{length}\NormalTok{(needInstall)>}\DecValTok{0}\NormalTok{) }\KeywordTok{install.packages}\NormalTok{(needInstall, }\DataTypeTok{dep =} \OtherTok{TRUE}\NormalTok{)}
+  \NormalTok{if(}\KeywordTok{length}\NormalTok{(needInstall) >}\StringTok{ }\DecValTok{0}\NormalTok{) }\KeywordTok{install.packages}\NormalTok{(needInstall, }\DataTypeTok{dep =} \OtherTok{TRUE}\NormalTok{)}
   \KeywordTok{sapply}\NormalTok{(packs, require, }\DataTypeTok{character.only =} \OtherTok{TRUE}\NormalTok{)}
 \NormalTok{\}}
 \end{Highlighting}
@@ -772,8 +772,8 @@ total.
 
 \begin{center}\includegraphics{r-intro-multivar_files/figure-latex/exe_prcomp-3} \end{center}
 
-\section{Exemplo da função
-principal(psych)}\label{exemplo-da-funcao-principalpsych}
+\section{Exemplo da função principal
+(psych)}\label{exemplo-da-funcao-principal-psych}
 
 \begin{Shaded}
 \begin{Highlighting}[]

@@ -124,7 +124,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="PCA.html"><a href="PCA.html"><i class="fa fa-check"></i><b>4</b> Análise de Componentes Principais</a><ul>
 <li class="chapter" data-level="4.1" data-path="PCA.html"><a href="PCA.html#metodos-de-calculo"><i class="fa fa-check"></i><b>4.1</b> Métodos de cálculo</a></li>
 <li class="chapter" data-level="4.2" data-path="PCA.html"><a href="PCA.html#exemplo-da-funcao-prcomp"><i class="fa fa-check"></i><b>4.2</b> Exemplo da função prcomp</a></li>
-<li class="chapter" data-level="4.3" data-path="PCA.html"><a href="PCA.html#exemplo-da-funcao-principalpsych"><i class="fa fa-check"></i><b>4.3</b> Exemplo da função principal(psych)</a></li>
+<li class="chapter" data-level="4.3" data-path="PCA.html"><a href="PCA.html#exemplo-da-funcao-principal-psych"><i class="fa fa-check"></i><b>4.3</b> Exemplo da função principal (psych)</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="FA.html"><a href="FA.html"><i class="fa fa-check"></i><b>5</b> Análise Fatorial</a><ul>
 <li class="chapter" data-level="5.1" data-path="FA.html"><a href="FA.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
@@ -167,7 +167,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">autoLib =<span class="st"> </span>function(packs) {
   idx =<span class="st"> </span>packs %in%<span class="st"> </span><span class="kw">installed.packages</span>()[, <span class="st">&quot;Package&quot;</span>]
   needInstall =<span class="st"> </span>packs[!idx]
-  if(<span class="kw">length</span>(needInstall)&gt;<span class="dv">0</span>) <span class="kw">install.packages</span>(needInstall, <span class="dt">dep =</span> <span class="ot">TRUE</span>)
+  if(<span class="kw">length</span>(needInstall) &gt;<span class="st"> </span><span class="dv">0</span>) <span class="kw">install.packages</span>(needInstall, <span class="dt">dep =</span> <span class="ot">TRUE</span>)
   <span class="kw">sapply</span>(packs, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)
 }</code></pre></div>
 
