@@ -25,7 +25,7 @@ Durante o curso serão utilizados alguns pacotes extras que necessitam ser insta
 autoLib = function(packs) {
   idx = packs %in% installed.packages()[, "Package"]
   needInstall = packs[!idx]
-  if(length(needInstall)>0) install.packages(needInstall, dep = TRUE)
+  if(length(needInstall) > 0) install.packages(needInstall, dep = TRUE)
   sapply(packs, require, character.only = TRUE)
 }
 ```

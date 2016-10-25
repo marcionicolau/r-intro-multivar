@@ -47,7 +47,7 @@ biplot(prcomp(USArrests, scale = TRUE))
 abline(v=0,h=0,col="red", lty=2)
 ```
 
-## Exemplo da função principal(psych)
+## Exemplo da função principal (psych)
 
 ```{r exe_principal, fig.align='center', fig.width=8, fig.height=8}
 #Four principal components of the Harman 24 variable problem
