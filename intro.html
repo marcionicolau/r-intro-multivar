@@ -26,7 +26,7 @@
 <meta name="author" content="Marcio Nicolau">
 
   
-<meta name="date" content="2016-10-24">
+<meta name="date" content="2016-10-25">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -111,7 +111,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdução</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdução</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#pacotes"><i class="fa fa-check"></i><b>2.1</b> Pacotes</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="AA.html"><a href="AA.html"><i class="fa fa-check"></i><b>3</b> Análise de Agrupamentos</a><ul>
 <li class="chapter" data-level="3.1" data-path="AA.html"><a href="AA.html#AAprocess"><i class="fa fa-check"></i><b>3.1</b> Processo de Agrupamento</a></li>
 <li class="chapter" data-level="3.2" data-path="AA.html"><a href="AA.html#AAmethod"><i class="fa fa-check"></i><b>3.2</b> Métodos de Agrupamento</a></li>
@@ -119,7 +121,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.4" data-path="AA.html"><a href="AA.html#exemplo-forca-de-trabalho-agricola-na-ue-1993"><i class="fa fa-check"></i><b>3.4</b> Exemplo: Força de trabalho agrícola na UE (1993)</a></li>
 <li class="chapter" data-level="3.5" data-path="AA.html"><a href="AA.html#exemplo-cluster-usarrest"><i class="fa fa-check"></i><b>3.5</b> Exemplo cluster USArrest</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="PCA.html"><a href="PCA.html"><i class="fa fa-check"></i><b>4</b> Análise de Componentes Principais</a></li>
+<li class="chapter" data-level="4" data-path="PCA.html"><a href="PCA.html"><i class="fa fa-check"></i><b>4</b> Análise de Componentes Principais</a><ul>
+<li class="chapter" data-level="4.1" data-path="PCA.html"><a href="PCA.html#metodos-de-calculo"><i class="fa fa-check"></i><b>4.1</b> Métodos de cálculo</a></li>
+<li class="chapter" data-level="4.2" data-path="PCA.html"><a href="PCA.html#exemplo-da-funcao-prcomp"><i class="fa fa-check"></i><b>4.2</b> Exemplo da função prcomp</a></li>
+<li class="chapter" data-level="4.3" data-path="PCA.html"><a href="PCA.html#exemplo-da-funcao-principalpsych"><i class="fa fa-check"></i><b>4.3</b> Exemplo da função principal(psych)</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="FA.html"><a href="FA.html"><i class="fa fa-check"></i><b>5</b> Análise Fatorial</a><ul>
 <li class="chapter" data-level="5.1" data-path="FA.html"><a href="FA.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
 <li class="chapter" data-level="5.2" data-path="FA.html"><a href="FA.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
@@ -155,7 +161,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>No caso do FA, o objetivo é o de identificar construções poucos constructos para explicar os dados observados. No caso de PCA, pode não ser simples redução de dimensão, mas a interpretação dos componentes.</p>
 <p>Por fim, a Análise de Cluster (CA) pode também ser usada para criar grupos de variáveis com interesse de reduzir a complexidade dos dados por meio da formação de grupos menores e homogêneos.</p>
 <p>Tecnicamente, o problema de redução de dados pode ser resolvido como uma decomposição do valor singular (SVD) da matriz original, embora a solução mais típica seja o uso de PCA nas matrizes de covariância e/ou correlação.</p>
+<div id="pacotes" class="section level2">
+<h2><span class="header-section-number">2.1</span> Pacotes</h2>
+<p>Durante o curso serão utilizados alguns pacotes extras que necessitam ser instalados, para facilitar o processo de instalar e habilitá-los para uso, utilize a função abaixo</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">autoLib =<span class="st"> </span>function(packs) {
+  idx =<span class="st"> </span>packs %in%<span class="st"> </span><span class="kw">installed.packages</span>()[, <span class="st">&quot;Package&quot;</span>]
+  needInstall =<span class="st"> </span>packs[!idx]
+  if(<span class="kw">length</span>(needInstall)&gt;<span class="dv">0</span>) <span class="kw">install.packages</span>(needInstall, <span class="dt">dep =</span> <span class="ot">TRUE</span>)
+  <span class="kw">sapply</span>(packs, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)
+}</code></pre></div>
 
+</div>
 </div>
             </section>
 
