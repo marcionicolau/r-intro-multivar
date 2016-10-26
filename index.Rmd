@@ -21,9 +21,9 @@ Será utilizado o sofware *`r R.Version()$version.string`* disponível em [CRAN]
 
 A carga horária total será de 20 horas (3 dias) nos quais os seguintes tópicos de Análise Multivariada serão abordados.
 
-* Análise de Agrupamentos (CA)
-* Análise de Componentes Principais (PCA)
-* Análise Fatorial (FA)
+* Análise de Agrupamentos (CA:\@ref(CA))
+* Análise de Componentes Principais (PCA:\@ref(PCA))
+* Análise de Fatores (FA:\@ref(FA))
 
 Alguns exemplos serão realizados com dados disponíveis na literatura científica e, em certos momentos, serão utilizados dados dos próprios participantes.
 

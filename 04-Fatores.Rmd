@@ -1,7 +1,65 @@
-# Análise Fatorial {#FA}
+# Análise de Fatores {#FA}
 
-Some _significant_ applications are demonstrated in this chapter.
+O objetivo principal da Análise de Fatores (FA) é identificar um número reduzido de variáveis latentes ou constructos que explicam os dados observados ou sob estudo.
 
-## Example one
+No caso de redução da dimensão o problema (PCA \@ref(PCA) ou CA \@ref(CA)) pode ser resolvido pelo método SVD da matriz de dados original, mas a solução mais comum é a utilização de PCA ou FA da matriz de covariância ou correlação.
 
-## Example two
+## Algorítmos disponíveis na biblioteca _psych_
+
+Ao todo, temos disponível 5 algorítimos para uso com FA na biblioteca _psych_ por meio do comando fa, são eles:
+
+- *minres*: resíduo mínimo
+- *principal axis*: utiliza sucessivas decomposições dos autovalores na matriz de correlação
+- *weighted least squares*: mínimos quadrado ponderados
+- *generalized least squares*: mínimos quadrados genrealizados
+- *maximum likelihood*: máxima verossimilhança
+
+## Métodos de rotação (_psych_)
+
+Referente a forma ou método de rotação temos as opções a seguir:
+
+- *ortogonais*: "none", "varimax", "quartimax", "bentlerT", "equamax", "varimin", "geominT" e "bifactor"
+- *oblíquas*: "promax", "oblimin", "simplimax", "bentlerQ, "geominQ",  "biquartimin" e "cluster"
+
+## Exemplo utilizando dataset Harman 24 e comparando com PCA
+
+```{r harmanPCA}
+#using the Harman 24 mental tests, compare a principal factor with a principal components solution
+pc <- principal(Harman74.cor$cov,4,rotate="varimax")   #principal components
+pa <- fa(Harman74.cor$cov,4,fm="pa" ,rotate="varimax")  #principal axis 
+uls <- fa(Harman74.cor$cov,4,rotate="varimax")          #unweighted least squares is minres
+wls <- fa(Harman74.cor$cov,4,fm="wls")       #weighted least squares
+
+#to show the loadings sorted by absolute value
+print(uls,sort=TRUE)
+
+#then compare with a maximum likelihood solution using factanal
+mle <- factanal(covmat=Harman74.cor$cov,factors=4)
+factor.congruence(list(mle,pa,pc,uls,wls))
+#note that the order of factors and the sign of some of factors may differ 
+
+#finally, compare the unrotated factor, ml, uls, and  wls solutions
+wls <- fa(Harman74.cor$cov,4,rotate="none",fm="wls")
+pa <- fa(Harman74.cor$cov,4,rotate="none",fm="pa")
+minres <-  factanal(factors=4,covmat=Harman74.cor$cov,rotation="none")
+mle <- fa(Harman74.cor$cov,4,rotate="none",fm="mle")
+uls <- fa(Harman74.cor$cov,4,rotate="none",fm="uls")
+factor.congruence(list(minres,mle,pa,wls,uls))
+#in particular, note the similarity of the mle and min res solutions
+#note that the order of factors and the sign of some of factors may differ 
+```
+
+## Exemplo: Entender a estrutura utilizando FA e o comando omega (psych)
+
+A função *omega* utilizado Análise de Fatores Exploratoria (EFA) para estimar coeficientes de relação intrínseca (padrões)
+
+```{r exe_omega}
+om <- omega(Thurstone)
+round(om$omega.group,2)
+#fraction of reliable that is general variance
+round(om$omega.group[2]/om$omega.group[1],2)  
+#fraction of reliable that is group variance
+round(om$omega.group[3]/om$omega.group[1],2)  
+```
+
+

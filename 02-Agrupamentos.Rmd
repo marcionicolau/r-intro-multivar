@@ -1,4 +1,4 @@
-# Análise de Agrupamentos {#AA}
+# Análise de Agrupamentos {#CA}
 
 Nesta seção serão utilizados as seguinte bibliotecas do R.
 ```{r libsecAA, warning=FALSE}
