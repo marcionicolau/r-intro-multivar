@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Introdução à Análise Multivariada usando R</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="Este é o material base para o curso introdutório de Análise Multivariada utilizando o software R oferecido em Outubro/2016 na Embrapa Pesca e Aquicultura (Palmas/TO)">
+  <meta name="generator" content="bookdown 0.1.16 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Introdução à Análise Multivariada usando R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Este é o material base para o curso introdutório de Análise Multivariada utilizando o software R oferecido em Outubro/2016 na Embrapa Pesca e Aquicultura (Palmas/TO)" />
+  <meta name="github-repo" content="marcionicolau/r-intro-multivar" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Introdução à Análise Multivariada usando R" />
+  
+  <meta name="twitter:description" content="Este é o material base para o curso introdutório de Análise Multivariada utilizando o software R oferecido em Outubro/2016 na Embrapa Pesca e Aquicultura (Palmas/TO)" />
+  
+
+<meta name="author" content="Marcio Nicolau">
+
+  
+<meta name="date" content="2016-10-26">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="intro.html">
+<link rel="next" href="PCA.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Intro Multivar</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Pré-requisitos</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdução</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#pacotes"><i class="fa fa-check"></i><b>2.1</b> Pacotes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="CA.html"><a href="CA.html"><i class="fa fa-check"></i><b>3</b> Análise de Agrupamentos</a><ul>
+<li class="chapter" data-level="3.1" data-path="CA.html"><a href="CA.html#AAprocess"><i class="fa fa-check"></i><b>3.1</b> Processo de Agrupamento</a></li>
+<li class="chapter" data-level="3.2" data-path="CA.html"><a href="CA.html#AAmethod"><i class="fa fa-check"></i><b>3.2</b> Métodos de Agrupamento</a></li>
+<li class="chapter" data-level="3.3" data-path="CA.html"><a href="CA.html#AAdist"><i class="fa fa-check"></i><b>3.3</b> Distâncias usadas para cálculo de agrupamentos</a></li>
+<li class="chapter" data-level="3.4" data-path="CA.html"><a href="CA.html#exemplo-forca-de-trabalho-agricola-na-ue-1993"><i class="fa fa-check"></i><b>3.4</b> Exemplo: Força de trabalho agrícola na UE (1993)</a></li>
+<li class="chapter" data-level="3.5" data-path="CA.html"><a href="CA.html#exemplo-cluster-usarrest"><i class="fa fa-check"></i><b>3.5</b> Exemplo cluster USArrest</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="PCA.html"><a href="PCA.html"><i class="fa fa-check"></i><b>4</b> Análise de Componentes Principais</a><ul>
+<li class="chapter" data-level="4.1" data-path="PCA.html"><a href="PCA.html#metodos-de-calculo"><i class="fa fa-check"></i><b>4.1</b> Métodos de cálculo</a></li>
+<li class="chapter" data-level="4.2" data-path="PCA.html"><a href="PCA.html#exemplo-da-funcao-prcomp"><i class="fa fa-check"></i><b>4.2</b> Exemplo da função prcomp</a></li>
+<li class="chapter" data-level="4.3" data-path="PCA.html"><a href="PCA.html#exemplo-da-funcao-principal-psych"><i class="fa fa-check"></i><b>4.3</b> Exemplo da função principal (psych)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="FA.html"><a href="FA.html"><i class="fa fa-check"></i><b>5</b> Análise de Fatores</a><ul>
+<li class="chapter" data-level="5.1" data-path="FA.html"><a href="FA.html#algoritmos-disponiveis-na-biblioteca-psych"><i class="fa fa-check"></i><b>5.1</b> Algorítmos disponíveis na biblioteca <em>psych</em></a></li>
+<li class="chapter" data-level="5.2" data-path="FA.html"><a href="FA.html#metodos-de-rotacao-psych"><i class="fa fa-check"></i><b>5.2</b> Métodos de rotação (<em>psych</em>)</a></li>
+<li class="chapter" data-level="5.3" data-path="FA.html"><a href="FA.html#exemplo-utilizando-dataset-harman-24-e-comparando-com-pca"><i class="fa fa-check"></i><b>5.3</b> Exemplo utilizando dataset Harman 24 e comparando com PCA</a></li>
+<li class="chapter" data-level="5.4" data-path="FA.html"><a href="FA.html#exemplo-entender-a-estrutura-utilizando-fa-e-o-comando-omega-psych"><i class="fa fa-check"></i><b>5.4</b> Exemplo: Entender a estrutura utilizando FA e o comando omega (psych)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/marcionicolau/r-intro-multivar" target="blank">R Intro Multivar</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução à Análise Multivariada usando R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="CA" class="section level1">
+<h1><span class="header-section-number">Capítulo 3</span> Análise de Agrupamentos</h1>
+<p>Nesta seção serão utilizados as seguinte bibliotecas do R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoLib</span>(<span class="kw">c</span>(<span class="st">&#39;cluster&#39;</span>, <span class="st">&#39;dplyr&#39;</span>))</code></pre></div>
+<pre><code>## Loading required package: cluster</code></pre>
+<pre><code>## Loading required package: dplyr</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre><code>## cluster   dplyr 
+##    TRUE    TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::opts_knit$<span class="kw">set</span>(<span class="dt">fig.width=</span><span class="dv">5</span>, <span class="dt">fig.height=</span><span class="dv">5</span>, <span class="dt">fig.align=</span><span class="st">&#39;center&#39;</span>)</code></pre></div>
+<div id="AAprocess" class="section level2">
+<h2><span class="header-section-number">3.1</span> Processo de Agrupamento</h2>
+<p>Um agrupamento pode ser construído de duas formas:</p>
+<ul>
+<li>hierarquia: funções <em>agnes</em>, <em>diana</em>, <em>mona</em> e <em>hclust</em>;</li>
+<li>particionamento: funções <em>pam</em>, <em>clara</em>, <em>fanny</em> e <em>kmeans</em></li>
+</ul>
+</div>
+<div id="AAmethod" class="section level2">
+<h2><span class="header-section-number">3.2</span> Métodos de Agrupamento</h2>
+<p>Um agrupamento pode gerar os grupos utilizando algum dos métodos a seguir (mais comuns):</p>
+<ul>
+<li>average: <em>média</em> ou UPGMA (média dissimilaridade)</li>
+<li>single: <em>simple:</em> (vizinho mais próximo)</li>
+<li>complete: <em>completa</em> (vizinho mais distante)</li>
+<li>ward: <em>Ward</em> ou método da mínima variância.</li>
+<li>weighted/mcquitty: <em>média ponderada</em> ou WPGMA</li>
+</ul>
+</div>
+<div id="AAdist" class="section level2">
+<h2><span class="header-section-number">3.3</span> Distâncias usadas para cálculo de agrupamentos</h2>
+<p>Para se calcular a distância entre os componentes, pode-se utilizar as funções a seguir (mais comuns):</p>
+<ul>
+<li>euclidian: <em>euclideana</em>, raiz da soma do quadrado das diferenças entre os pontos/observações (distância no plano cartesiano)</li>
+<li>mahalanobis: <em>Mahalanobis</em>, distância de cada valor em relação à média e covariância (também conhecida como distância estatística). <em>OBS</em> é capaz de trabalhar a distância para observações com repetições. (kernel da normal multivariada)</li>
+<li>manhattan: <em>Manhattan</em>, soma das diferenças média absoluta (L1 norm)</li>
+<li>maximum: <em>Máxima</em>, máxima distância entre dois componentes (supremum norm)</li>
+<li>canberra: <em>Canberra</em>, uso em valores não negativos (p.ex. contagem) <span class="math inline">\(\sum(|x_i - y_i| / |x_i + y_i|)\)</span></li>
+<li>binary: <em>Binária</em>, para valores do tipo “on”/“off” em que <span class="math inline">\(0\)</span> representa desligado e números maiores que <span class="math inline">\(0\)</span>. A distância é a proporção de “on`s”.</li>
+<li>minkowski: <em>Minkowski</em>, P-Norm ou p-ésima raíz da soma de potência p das diferenças.</li>
+</ul>
+</div>
+<div id="exemplo-forca-de-trabalho-agricola-na-ue-1993" class="section level2">
+<h2><span class="header-section-number">3.4</span> Exemplo: Força de trabalho agrícola na UE (1993)</h2>
+<p>Estes conjunto registra os dados da produção per capita e o percentual da população que trabalha na agricultura em cada país da UE em 1993.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(agriculture)
+
+## Calcula matriz de dissimilaridade usando distância euclidiana 
+## e sem padronização das variáveis
+<span class="kw">print</span>(<span class="kw">daisy</span>(agriculture, <span class="dt">metric =</span> <span class="st">&quot;euclidean&quot;</span>, <span class="dt">stand =</span> <span class="ot">FALSE</span>),
+      <span class="dt">digits =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## Dissimilarities :
+##        B   DK    D   GR    E    F  IRL    I    L   NL    P
+## DK   5.4                                                  
+## D    2.1  3.4                                             
+## GR  22.3 22.6 22.7                                        
+## E    9.8 11.2 10.4 12.6                                   
+## F    3.4  3.5  2.7 20.1  8.1                              
+## IRL 12.7 13.3 13.1  9.6  3.1 10.6                         
+## I    5.8  5.5  5.4 17.4  5.7  2.8  7.9                    
+## L    4.3  2.2  2.3 24.0 12.1  4.1 14.6  6.7               
+## NL   1.6  5.1  2.4 20.8  8.3  2.2 11.2  4.2  4.7          
+## P   17.2 17.9 17.7  5.2  7.4 15.2  4.6 12.5 19.2 15.7     
+## UK   2.8  8.1  4.9 21.5  9.0  5.3 12.1  6.7  7.1  3.1 16.3
+## 
+## Metric :  euclidean 
+## Number of objects : 12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Usa método de particionamento pelo meióide 
+## Partitioning Around Medoids (PAM)
+<span class="kw">plot</span>(<span class="kw">pam</span>(agriculture, <span class="dv">2</span>), <span class="dt">which.plots =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/data_agri_exe-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Gráfico dendograma usando método aglomeração mais próximo
+## agnes
+<span class="kw">plot</span>(<span class="kw">agnes</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">2</span>, <span class="dt">hang =</span> -<span class="dv">1</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/data_agri_exe-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Plot dissimilaridade usando método divisivo
+## diana
+<span class="kw">plot</span>(<span class="kw">diana</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/data_agri_exe-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Usando agnes e diana para conjunto agricultura
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>))
+<span class="kw">plot</span>(<span class="kw">agnes</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">2</span>, <span class="dt">hang =</span> -<span class="dv">1</span>,
+     <span class="dt">main =</span> <span class="st">&quot;Método Aglomerativo</span><span class="ch">\n</span><span class="st">AGNES&quot;</span>)
+<span class="kw">plot</span>(<span class="kw">diana</span>(agriculture), <span class="dt">which.plots =</span> <span class="dv">2</span>, <span class="dt">hang =</span> -<span class="dv">1</span>,
+     <span class="dt">main =</span> <span class="st">&quot;Método Divisivo</span><span class="ch">\n</span><span class="st">DIANA&quot;</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/data_agri_exe-4.png" width="672" /></p>
+</div>
+<div id="exemplo-cluster-usarrest" class="section level2">
+<h2><span class="header-section-number">3.5</span> Exemplo cluster USArrest</h2>
+<p>Neste exemplo vamos utilizar o conjunto USArrest, disponível na instalação padrão do R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(USArrests)
+<span class="co">#?USArrests</span>
+
+d0 =<span class="st"> </span><span class="kw">dist</span>(USArrests) <span class="co"># euclidian</span>
+hc =<span class="st"> </span><span class="kw">hclust</span>(d0, <span class="st">&quot;average&quot;</span>)
+<span class="kw">plot</span>(hc, <span class="dt">hang =</span> -<span class="dv">1</span>)
+<span class="co"># Criar 10 grupos</span>
+memb =<span class="st"> </span><span class="kw">cutree</span>(hc, <span class="dt">k =</span> <span class="dv">10</span>)
+<span class="co"># Anota no gráfico os 10 grupos</span>
+<span class="kw">rect.hclust</span>(hc, <span class="dv">10</span>)</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/cluArrest-1.png" width="672" /></p>
+<p>Como exercício, será trabalhado a seguinte situação: Gostaríamos de saber quais são os estados que compoem o grupo 1 e qual a média de assalto (variável <em>Assault</em>) para cada grupo.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Cria conjunto de dados a partir da divisão inicial com</span>
+<span class="co"># 10 grupos, com as variáveis State e grp10</span>
+dAssault =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">State =</span> <span class="kw">names</span>(memb), <span class="dt">grp10 =</span> memb)
+<span class="co"># Utilizando a biblioteca dplyr, transformamos o conjunto</span>
+<span class="co"># dAssault para criar uma nova variável grp3</span>
+dAssault =<span class="st"> </span>dAssault %&gt;%<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">grp3 =</span> <span class="kw">cutree</span>(hc, <span class="dt">k =</span> <span class="dv">3</span>), <span class="dt">Assault =</span> USArrests$Assault)
+<span class="co"># calculamos a média por cada grupo grp10</span>
+dAssault %&gt;%<span class="st"> </span><span class="kw">group_by</span>(grp10) %&gt;%<span class="st"> </span><span class="kw">summarize</span>(<span class="dt">media=</span><span class="kw">mean</span>(Assault))</code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##    grp10     media
+##    &lt;int&gt;     &lt;dbl&gt;
+## 1      1 247.57143
+## 2      2 267.00000
+## 3      3 288.75000
+## 4      4 195.33333
+## 5      5 112.40000
+## 6      6 335.00000
+## 7      7  46.00000
+## 8      8  64.55556
+## 9      9 156.75000
+## 10    10 337.00000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># selecionamos os estados que estão associados ao grupo 1</span>
+dAssault %&gt;%<span class="st"> </span><span class="kw">filter</span>(grp10 ==<span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<pre><code>##       State grp10 grp3 Assault
+## 1   Alabama     1    1     236
+## 2  Delaware     1    1     238
+## 3  Illinois     1    1     249
+## 4 Louisiana     1    1     249
+## 5  Michigan     1    1     255
+## 6    Nevada     1    1     252
+## 7  New York     1    1     254</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculamos a média e o número de estados por cada grupo grp3</span>
+dAssault %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(grp3) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">media=</span><span class="kw">mean</span>(Assault), <span class="dt">prop =</span> <span class="kw">sum</span>(Assault)/<span class="kw">sum</span>(USArrests$Assault),
+            <span class="dt">qtd =</span> <span class="kw">n</span>()) %&gt;%<span class="st"> </span><span class="kw">arrange</span>(prop)</code></pre></div>
+<pre><code>## # A tibble: 3 × 4
+##    grp3    media      prop   qtd
+##   &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;
+## 1     3  87.5500 0.2050832    20
+## 2     2 173.2857 0.2841415    14
+## 3     1 272.5625 0.5107754    16</code></pre>
+<p>Pode-se usa a ANOVA para avaliar o número de grupos, confira o código a seguir</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANOVA para grp10</span>
+aovGrp10 =<span class="st"> </span><span class="kw">aov</span>(Assault ~<span class="st"> </span><span class="kw">as.factor</span>(grp10), <span class="dt">data =</span> dAssault)
+<span class="kw">summary</span>(aovGrp10)</code></pre></div>
+<pre><code>##                  Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## as.factor(grp10)  9 335715   37302   324.5 &lt;2e-16 ***
+## Residuals        40   4598     115                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ANOVA para grp3</span>
+aovGrp3 =<span class="st"> </span><span class="kw">aov</span>(Assault ~<span class="st"> </span><span class="kw">as.factor</span>(grp3), <span class="dt">data =</span> dAssault)
+<span class="kw">summary</span>(aovGrp3)</code></pre></div>
+<pre><code>##                 Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## as.factor(grp3)  2 304387  152194   199.1 &lt;2e-16 ***
+## Residuals       47  35926     764                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># OBS: todo modelo linear aumenta a explicação com a </span>
+<span class="co"># adição de novas variáveis ao modelo, faz-se necessário</span>
+<span class="co"># criar uma penalização para auxiliar na escolha entre modelos</span>
+<span class="co"># além de definir um critério</span>
+(<span class="dt">mseGrp10 =</span> <span class="kw">sqrt</span>(<span class="kw">summary</span>(aovGrp10)[[<span class="dv">1</span>]]$<span class="st">`</span><span class="dt">Mean Sq</span><span class="st">`</span>[<span class="dv">2</span>]))</code></pre></div>
+<pre><code>## [1] 10.72138</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dt">mseGrp3 =</span> <span class="kw">sqrt</span>(<span class="kw">summary</span>(aovGrp3)[[<span class="dv">1</span>]]$<span class="st">`</span><span class="dt">Mean Sq</span><span class="st">`</span>[<span class="dv">2</span>]))</code></pre></div>
+<pre><code>## [1] 27.64738</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># critério mse - log(num fatores)</span>
+mseGrp10 -<span class="st"> </span><span class="kw">log</span>(<span class="dv">10</span>)</code></pre></div>
+<pre><code>## [1] 8.418795</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mseGrp3 -<span class="st"> </span><span class="kw">log</span>(<span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] 26.54877</code></pre>
+<p>Por fim, a apresentação dos grupos, também pode ser feita com a função <em>clusplot</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">clusplot</span>(USArrests, <span class="kw">cutree</span>(hc, <span class="dt">k =</span> <span class="dv">3</span>), <span class="dt">shade =</span> <span class="ot">TRUE</span>, <span class="dt">color =</span> <span class="ot">TRUE</span>,
+         <span class="dt">col.clus =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;grey20&quot;</span>, <span class="st">&quot;blue&quot;</span>))</code></pre></div>
+<p><img src="r-intro-multivar_files/figure-html/plotGrp3-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="PCA.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/marcionicolau/r-intro-multivar/edit/master/02-Agrupamentos.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

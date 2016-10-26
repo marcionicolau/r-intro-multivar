@@ -113,7 +113,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2016-10-25}
+  \date{2016-10-26}
 
 
 % Redefines (sub)paragraphs to behave more like sections
@@ -151,11 +151,11 @@ tópicos de Análise Multivariada serão abordados.
 \begin{itemize}
 \tightlist
 \item
-  Análise de Agrupamentos (CA)
+  Análise de Agrupamentos (CA:\ref{CA})
 \item
-  Análise de Componentes Principais (PCA)
+  Análise de Componentes Principais (PCA:\ref{PCA})
 \item
-  Análise Fatorial (FA)
+  Análise de Fatores (FA:\ref{FA})
 \end{itemize}
 
 Alguns exemplos serão realizados com dados disponíveis na literatura
@@ -193,10 +193,10 @@ explicar as relações intrínsecas entre os dados, reduzir a dimensão,
 entender fontes de variabilidade, criar grupos homogêneos de
 indivíduos/espécies.
 
-Pode-se dizer que a Análise Fatorial (FA), a Análise de Componentes
-Principais (PCA) e a Análise de Cluster (CA) são processo que tem por
-objetivo reduzir a complexidade dos dados observados, bem como entender
-o modelo estrutural presente nos dados.
+Pode-se dizer que a Análise de Fatores (\ref{FA}), a Análise de
+Componentes Principais (\ref{PCA}) e a Análise de Cluster (\ref{CA}) são
+processo que tem por objetivo reduzir a complexidade dos dados
+observados, bem como entender o modelo estrutural presente nos dados.
 
 No caso do FA, o objetivo é o de identificar construções poucos
 constructos para explicar os dados observados. No caso de PCA, pode não
@@ -228,7 +228,7 @@ para uso, utilize a função abaixo
 \end{Highlighting}
 \end{Shaded}
 
-\chapter{Análise de Agrupamentos}\label{AA}
+\chapter{Análise de Agrupamentos}\label{CA}
 
 Nesta seção serão utilizados as seguinte bibliotecas do R.
 
@@ -1028,13 +1028,307 @@ total.
 
 \begin{center}\includegraphics{r-intro-multivar_files/figure-latex/exe_principal-1} \end{center}
 
-\chapter{Análise Fatorial}\label{FA}
+\chapter{Análise de Fatores}\label{FA}
 
-Some \emph{significant} applications are demonstrated in this chapter.
+O objetivo principal da Análise de Fatores (FA) é identificar um número
+reduzido de variáveis latentes ou constructos que explicam os dados
+observados ou sob estudo.
 
-\section{Example one}\label{example-one}
+No caso de redução da dimensão o problema (PCA \ref{PCA} ou CA \ref{CA})
+pode ser resolvido pelo método SVD da matriz de dados original, mas a
+solução mais comum é a utilização de PCA ou FA da matriz de covariância
+ou correlação.
 
-\section{Example two}\label{example-two}
+\section{\texorpdfstring{Algorítmos disponíveis na biblioteca
+\emph{psych}}{Algorítmos disponíveis na biblioteca psych}}\label{algoritmos-disponiveis-na-biblioteca-psych}
+
+Ao todo, temos disponível 5 algorítimos para uso com FA na biblioteca
+\emph{psych} por meio do comando fa, são eles:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{minres}: resíduo mínimo
+\item
+  \emph{principal axis}: utiliza sucessivas decomposições dos
+  autovalores na matriz de correlação
+\item
+  \emph{weighted least squares}: mínimos quadrado ponderados
+\item
+  \emph{generalized least squares}: mínimos quadrados genrealizados
+\item
+  \emph{maximum likelihood}: máxima verossimilhança
+\end{itemize}
+
+\section{\texorpdfstring{Métodos de rotação
+(\emph{psych})}{Métodos de rotação (psych)}}\label{metodos-de-rotacao-psych}
+
+Referente a forma ou método de rotação temos as opções a seguir:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{ortogonais}: ``none'', ``varimax'', ``quartimax'', ``bentlerT'',
+  ``equamax'', ``varimin'', ``geominT'' e ``bifactor''
+\item
+  \emph{oblíquas}: ``promax'', ``oblimin'', ``simplimax'',
+  ``bentlerQ,''geominQ``,''biquartimin" e ``cluster''
+\end{itemize}
+
+\section{Exemplo utilizando dataset Harman 24 e comparando com
+PCA}\label{exemplo-utilizando-dataset-harman-24-e-comparando-com-pca}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#using the Harman 24 mental tests, compare a principal factor with a principal components solution}
+\NormalTok{pc <-}\StringTok{ }\KeywordTok{principal}\NormalTok{(Harman74.cor$cov,}\DecValTok{4}\NormalTok{,}\DataTypeTok{rotate=}\StringTok{"varimax"}\NormalTok{)   }\CommentTok{#principal components}
+\NormalTok{pa <-}\StringTok{ }\KeywordTok{fa}\NormalTok{(Harman74.cor$cov,}\DecValTok{4}\NormalTok{,}\DataTypeTok{fm=}\StringTok{"pa"} \NormalTok{,}\DataTypeTok{rotate=}\StringTok{"varimax"}\NormalTok{)  }\CommentTok{#principal axis }
+\NormalTok{uls <-}\StringTok{ }\KeywordTok{fa}\NormalTok{(Harman74.cor$cov,}\DecValTok{4}\NormalTok{,}\DataTypeTok{rotate=}\StringTok{"varimax"}\NormalTok{)          }\CommentTok{#unweighted least squares is minres}
+\NormalTok{wls <-}\StringTok{ }\KeywordTok{fa}\NormalTok{(Harman74.cor$cov,}\DecValTok{4}\NormalTok{,}\DataTypeTok{fm=}\StringTok{"wls"}\NormalTok{)       }\CommentTok{#weighted least squares}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required namespace: GPArotation
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#to show the loadings sorted by absolute value}
+\KeywordTok{print}\NormalTok{(uls,}\DataTypeTok{sort=}\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Factor Analysis using method =  minres
+## Call: fa(r = Harman74.cor$cov, nfactors = 4, rotate = "varimax")
+## Standardized loadings (pattern matrix) based upon correlation matrix
+##                        item  MR1   MR3   MR2  MR4   h2   u2 com
+## WordMeaning               9 0.81  0.20  0.04 0.23 0.74 0.26 1.3
+## SentenceCompletion        7 0.81  0.20  0.15 0.07 0.72 0.28 1.2
+## PargraphComprehension     6 0.77  0.20  0.07 0.23 0.69 0.31 1.4
+## GeneralInformation        5 0.74  0.19  0.21 0.15 0.65 0.35 1.4
+## WordClassification        8 0.57  0.34  0.24 0.13 0.51 0.49 2.2
+## VisualPerception          1 0.16  0.69  0.19 0.16 0.56 0.44 1.4
+## PaperFormBoard            3 0.14  0.57 -0.02 0.11 0.36 0.64 1.2
+## Flags                     4 0.23  0.53  0.10 0.08 0.35 0.65 1.5
+## SeriesCompletion         23 0.37  0.50  0.24 0.24 0.50 0.50 2.9
+## Cubes                     2 0.12  0.44  0.08 0.10 0.22 0.78 1.3
+## Deduction                20 0.38  0.40  0.12 0.30 0.41 0.59 3.0
+## ProblemReasoning         22 0.37  0.40  0.12 0.30 0.40 0.60 3.1
+## Addition                 10 0.17 -0.12  0.83 0.17 0.76 0.24 1.2
+## CountingDots             12 0.02  0.21  0.72 0.09 0.56 0.44 1.2
+## StraightCurvedCapitals   13 0.19  0.44  0.53 0.08 0.51 0.49 2.3
+## Code                     11 0.18  0.12  0.51 0.37 0.45 0.55 2.2
+## ArithmeticProblems       24 0.37  0.16  0.50 0.30 0.50 0.50 2.8
+## NumericalPuzzles         21 0.17  0.38  0.44 0.22 0.42 0.58 2.8
+## ObjectNumber             17 0.14  0.06  0.22 0.57 0.40 0.60 1.4
+## WordRecognition          14 0.20  0.05  0.08 0.55 0.35 0.65 1.3
+## FigureRecognition        16 0.07  0.41  0.06 0.53 0.45 0.55 2.0
+## NumberRecognition        15 0.12  0.12  0.07 0.52 0.30 0.70 1.3
+## NumberFigure             18 0.03  0.29  0.34 0.46 0.41 0.59 2.6
+## FigureWord               19 0.15  0.24  0.16 0.37 0.24 0.76 2.6
+## 
+##                        MR1  MR3  MR2  MR4
+## SS loadings           3.65 2.87 2.66 2.29
+## Proportion Var        0.15 0.12 0.11 0.10
+## Cumulative Var        0.15 0.27 0.38 0.48
+## Proportion Explained  0.32 0.25 0.23 0.20
+## Cumulative Proportion 0.32 0.57 0.80 1.00
+## 
+## Mean item complexity =  1.9
+## Test of the hypothesis that 4 factors are sufficient.
+## 
+## The degrees of freedom for the null model are  276  and the objective function was  11.44
+## The degrees of freedom for the model are 186  and the objective function was  1.71 
+## 
+## The root mean square of the residuals (RMSR) is  0.04 
+## The df corrected root mean square of the residuals is  0.05 
+## 
+## Fit based upon off diagonal values = 0.98
+## Measures of factor score adequacy             
+##                                                 MR1  MR3  MR2  MR4
+## Correlation of scores with factors             0.93 0.87 0.91 0.82
+## Multiple R square of scores with factors       0.87 0.76 0.83 0.68
+## Minimum correlation of possible factor scores  0.73 0.52 0.66 0.36
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#then compare with a maximum likelihood solution using factanal}
+\NormalTok{mle <-}\StringTok{ }\KeywordTok{factanal}\NormalTok{(}\DataTypeTok{covmat=}\NormalTok{Harman74.cor$cov,}\DataTypeTok{factors=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{factor.congruence}\NormalTok{(}\KeywordTok{list}\NormalTok{(mle,pa,pc,uls,wls))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Factor1 Factor2 Factor3 Factor4  PA1  PA3  PA2  PA4  RC1  RC3  RC2
+## Factor1    1.00    0.61    0.46    0.56 1.00 0.61 0.46 0.55 1.00 0.54 0.44
+## Factor2    0.61    1.00    0.50    0.61 0.61 1.00 0.50 0.60 0.60 0.99 0.49
+## Factor3    0.46    0.50    1.00    0.57 0.46 0.50 1.00 0.56 0.45 0.44 1.00
+## Factor4    0.56    0.61    0.57    1.00 0.56 0.62 0.58 1.00 0.55 0.55 0.56
+## PA1        1.00    0.61    0.46    0.56 1.00 0.61 0.46 0.55 1.00 0.54 0.44
+## PA3        0.61    1.00    0.50    0.62 0.61 1.00 0.50 0.61 0.61 0.99 0.50
+## PA2        0.46    0.50    1.00    0.58 0.46 0.50 1.00 0.57 0.46 0.44 1.00
+## PA4        0.55    0.60    0.56    1.00 0.55 0.61 0.57 1.00 0.54 0.54 0.55
+## RC1        1.00    0.60    0.45    0.55 1.00 0.61 0.46 0.54 1.00 0.53 0.43
+## RC3        0.54    0.99    0.44    0.55 0.54 0.99 0.44 0.54 0.53 1.00 0.43
+## RC2        0.44    0.49    1.00    0.56 0.44 0.50 1.00 0.55 0.43 0.43 1.00
+## RC4        0.47    0.52    0.48    0.99 0.47 0.53 0.49 0.99 0.46 0.47 0.47
+## MR1        1.00    0.61    0.46    0.56 1.00 0.61 0.46 0.55 1.00 0.54 0.44
+## MR3        0.61    1.00    0.50    0.61 0.61 1.00 0.50 0.60 0.60 0.99 0.49
+## MR2        0.46    0.50    1.00    0.57 0.46 0.50 1.00 0.56 0.45 0.44 1.00
+## MR4        0.56    0.61    0.57    1.00 0.56 0.62 0.58 1.00 0.55 0.55 0.56
+## WLS1       0.98    0.47    0.30    0.40 0.98 0.48 0.30 0.39 0.98 0.41 0.28
+## WLS3       0.36    0.95    0.41    0.41 0.36 0.95 0.41 0.39 0.35 0.97 0.41
+## WLS2       0.23    0.22    0.95    0.36 0.23 0.22 0.95 0.35 0.22 0.16 0.95
+## WLS4       0.28    0.40    0.36    0.94 0.28 0.41 0.37 0.94 0.27 0.36 0.35
+##          RC4  MR1  MR3  MR2  MR4 WLS1 WLS3 WLS2 WLS4
+## Factor1 0.47 1.00 0.61 0.46 0.56 0.98 0.36 0.23 0.28
+## Factor2 0.52 0.61 1.00 0.50 0.61 0.47 0.95 0.22 0.40
+## Factor3 0.48 0.46 0.50 1.00 0.57 0.30 0.41 0.95 0.36
+## Factor4 0.99 0.56 0.61 0.57 1.00 0.40 0.41 0.36 0.94
+## PA1     0.47 1.00 0.61 0.46 0.56 0.98 0.36 0.23 0.28
+## PA3     0.53 0.61 1.00 0.50 0.62 0.48 0.95 0.22 0.41
+## PA2     0.49 0.46 0.50 1.00 0.58 0.30 0.41 0.95 0.37
+## PA4     0.99 0.55 0.60 0.56 1.00 0.39 0.39 0.35 0.94
+## RC1     0.46 1.00 0.60 0.45 0.55 0.98 0.35 0.22 0.27
+## RC3     0.47 0.54 0.99 0.44 0.55 0.41 0.97 0.16 0.36
+## RC2     0.47 0.44 0.49 1.00 0.56 0.28 0.41 0.95 0.35
+## RC4     1.00 0.47 0.52 0.48 0.99 0.32 0.32 0.28 0.97
+## MR1     0.47 1.00 0.61 0.46 0.56 0.98 0.36 0.23 0.28
+## MR3     0.52 0.61 1.00 0.50 0.61 0.47 0.95 0.22 0.40
+## MR2     0.48 0.46 0.50 1.00 0.57 0.30 0.41 0.95 0.36
+## MR4     0.99 0.56 0.61 0.57 1.00 0.40 0.41 0.36 0.94
+## WLS1    0.32 0.98 0.47 0.30 0.40 1.00 0.22 0.09 0.13
+## WLS3    0.32 0.36 0.95 0.41 0.41 0.22 1.00 0.17 0.23
+## WLS2    0.28 0.23 0.22 0.95 0.36 0.09 0.17 1.00 0.20
+## WLS4    0.97 0.28 0.40 0.36 0.94 0.13 0.23 0.20 1.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#note that the order of factors and the sign of some of factors may differ }
+
+\CommentTok{#finally, compare the unrotated factor, ml, uls, and  wls solutions}
+\NormalTok{wls <-}\StringTok{ }\KeywordTok{fa}\NormalTok{(Harman74.cor$cov,}\DecValTok{4}\NormalTok{,}\DataTypeTok{rotate=}\StringTok{"none"}\NormalTok{,}\DataTypeTok{fm=}\StringTok{"wls"}\NormalTok{)}
+\NormalTok{pa <-}\StringTok{ }\KeywordTok{fa}\NormalTok{(Harman74.cor$cov,}\DecValTok{4}\NormalTok{,}\DataTypeTok{rotate=}\StringTok{"none"}\NormalTok{,}\DataTypeTok{fm=}\StringTok{"pa"}\NormalTok{)}
+\NormalTok{minres <-}\StringTok{  }\KeywordTok{factanal}\NormalTok{(}\DataTypeTok{factors=}\DecValTok{4}\NormalTok{,}\DataTypeTok{covmat=}\NormalTok{Harman74.cor$cov,}\DataTypeTok{rotation=}\StringTok{"none"}\NormalTok{)}
+\NormalTok{mle <-}\StringTok{ }\KeywordTok{fa}\NormalTok{(Harman74.cor$cov,}\DecValTok{4}\NormalTok{,}\DataTypeTok{rotate=}\StringTok{"none"}\NormalTok{,}\DataTypeTok{fm=}\StringTok{"mle"}\NormalTok{)}
+\NormalTok{uls <-}\StringTok{ }\KeywordTok{fa}\NormalTok{(Harman74.cor$cov,}\DecValTok{4}\NormalTok{,}\DataTypeTok{rotate=}\StringTok{"none"}\NormalTok{,}\DataTypeTok{fm=}\StringTok{"uls"}\NormalTok{)}
+\KeywordTok{factor.congruence}\NormalTok{(}\KeywordTok{list}\NormalTok{(minres,mle,pa,wls,uls))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Factor1 Factor2 Factor3 Factor4   ML1   ML2  ML3   ML4  PA1   PA2
+## Factor1    1.00    0.11    0.25    0.06  1.00  0.11 0.25  0.06 1.00 -0.04
+## Factor2    0.11    1.00    0.06    0.07  0.11  1.00 0.06  0.07 0.14  0.98
+## Factor3    0.25    0.06    1.00    0.01  0.25  0.06 1.00  0.01 0.30  0.10
+## Factor4    0.06    0.07    0.01    1.00  0.06  0.07 0.01  1.00 0.07  0.13
+## ML1        1.00    0.11    0.25    0.06  1.00  0.11 0.25  0.06 1.00 -0.04
+## ML2        0.11    1.00    0.06    0.07  0.11  1.00 0.06  0.07 0.14  0.98
+## ML3        0.25    0.06    1.00    0.01  0.25  0.06 1.00  0.01 0.30  0.10
+## ML4        0.06    0.07    0.01    1.00  0.06  0.07 0.01  1.00 0.07  0.13
+## PA1        1.00    0.14    0.30    0.07  1.00  0.14 0.30  0.07 1.00  0.00
+## PA2       -0.04    0.98    0.10    0.13 -0.04  0.98 0.10  0.13 0.00  1.00
+## PA3       -0.05   -0.08    0.95   -0.04 -0.05 -0.08 0.95 -0.04 0.00  0.00
+## PA4       -0.01   -0.08    0.02    0.99 -0.01 -0.08 0.02  0.99 0.00  0.00
+## WLS1       1.00    0.14    0.30    0.07  1.00  0.14 0.30  0.07 1.00  0.00
+## WLS2      -0.04    0.98    0.09    0.13 -0.04  0.98 0.09  0.13 0.00  1.00
+## WLS3      -0.05   -0.07    0.95   -0.04 -0.05 -0.07 0.95 -0.04 0.00  0.01
+## WLS4      -0.01   -0.07    0.02    0.99 -0.01 -0.07 0.02  0.99 0.00  0.01
+## ULS1       1.00    0.11    0.25    0.06  1.00  0.11 0.25  0.06 1.00 -0.04
+## ULS2       0.11    1.00    0.06    0.07  0.11  1.00 0.06  0.07 0.14  0.98
+## ULS3       0.25    0.06    1.00    0.01  0.25  0.06 1.00  0.01 0.30  0.10
+## ULS4       0.06    0.07    0.01    1.00  0.06  0.07 0.01  1.00 0.07  0.13
+##           PA3   PA4 WLS1  WLS2  WLS3  WLS4  ULS1  ULS2 ULS3  ULS4
+## Factor1 -0.05 -0.01 1.00 -0.04 -0.05 -0.01  1.00  0.11 0.25  0.06
+## Factor2 -0.08 -0.08 0.14  0.98 -0.07 -0.07  0.11  1.00 0.06  0.07
+## Factor3  0.95  0.02 0.30  0.09  0.95  0.02  0.25  0.06 1.00  0.01
+## Factor4 -0.04  0.99 0.07  0.13 -0.04  0.99  0.06  0.07 0.01  1.00
+## ML1     -0.05 -0.01 1.00 -0.04 -0.05 -0.01  1.00  0.11 0.25  0.06
+## ML2     -0.08 -0.08 0.14  0.98 -0.07 -0.07  0.11  1.00 0.06  0.07
+## ML3      0.95  0.02 0.30  0.09  0.95  0.02  0.25  0.06 1.00  0.01
+## ML4     -0.04  0.99 0.07  0.13 -0.04  0.99  0.06  0.07 0.01  1.00
+## PA1      0.00  0.00 1.00  0.00  0.00  0.00  1.00  0.14 0.30  0.07
+## PA2      0.00  0.00 0.00  1.00  0.01  0.01 -0.04  0.98 0.10  0.13
+## PA3      1.00  0.00 0.00 -0.01  1.00  0.00 -0.05 -0.08 0.95 -0.04
+## PA4      0.00  1.00 0.00 -0.01  0.00  1.00 -0.01 -0.08 0.02  0.99
+## WLS1     0.00  0.00 1.00  0.00  0.00  0.00  1.00  0.14 0.30  0.07
+## WLS2    -0.01 -0.01 0.00  1.00  0.00  0.00 -0.04  0.98 0.09  0.13
+## WLS3     1.00  0.00 0.00  0.00  1.00  0.00 -0.05 -0.07 0.95 -0.04
+## WLS4     0.00  1.00 0.00  0.00  0.00  1.00 -0.01 -0.07 0.02  0.99
+## ULS1    -0.05 -0.01 1.00 -0.04 -0.05 -0.01  1.00  0.11 0.25  0.06
+## ULS2    -0.08 -0.08 0.14  0.98 -0.07 -0.07  0.11  1.00 0.06  0.07
+## ULS3     0.95  0.02 0.30  0.09  0.95  0.02  0.25  0.06 1.00  0.01
+## ULS4    -0.04  0.99 0.07  0.13 -0.04  0.99  0.06  0.07 0.01  1.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#in particular, note the similarity of the mle and min res solutions}
+\CommentTok{#note that the order of factors and the sign of some of factors may differ }
+\end{Highlighting}
+\end{Shaded}
+
+\section{Exemplo: Entender a estrutura utilizando FA e o comando omega
+(psych)}\label{exemplo-entender-a-estrutura-utilizando-fa-e-o-comando-omega-psych}
+
+A função \emph{omega} utilizado Análise de Fatores Exploratoria (EFA)
+para estimar coeficientes de relação intrínseca (padrões)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{om <-}\StringTok{ }\KeywordTok{omega}\NormalTok{(Thurstone)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{r-intro-multivar_files/figure-latex/exe_omega-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{round}\NormalTok{(om$omega.group,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     total general group
+## g    0.93    0.74  0.16
+## F1*  0.92    0.58  0.35
+## F2*  0.83    0.50  0.32
+## F3*  0.79    0.47  0.32
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#fraction of reliable that is general variance}
+\KeywordTok{round}\NormalTok{(om$omega.group[}\DecValTok{2}\NormalTok{]/om$omega.group[}\DecValTok{1}\NormalTok{],}\DecValTok{2}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     general
+## g      0.79
+## F1*    0.63
+## F2*    0.61
+## F3*    0.59
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#fraction of reliable that is group variance}
+\KeywordTok{round}\NormalTok{(om$omega.group[}\DecValTok{3}\NormalTok{]/om$omega.group[}\DecValTok{1}\NormalTok{],}\DecValTok{2}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     group
+## g    0.17
+## F1*  0.37
+## F2*  0.39
+## F3*  0.41
+\end{verbatim}
 
 \bibliography{packages.bib,book.bib}
 
